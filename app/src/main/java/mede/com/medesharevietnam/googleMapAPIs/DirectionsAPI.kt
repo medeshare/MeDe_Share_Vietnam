@@ -23,11 +23,11 @@ internal class DirectionsAPI constructor(){
         this.directionsService = DirectionsService.Factory.create()
     }
 
-    fun getDirection(startLatLng: LatLng, endLatLng: LatLng):Observable<Direction>{
+    fun getDirection(startLatLng: LatLng, endLatLng: LatLng, mode: String):Observable<Direction>{
         var origin = latLngToString(startLatLng)
         var destination = latLngToString(endLatLng)
 
-        return directionsService.get(origin, destination, key);
+        return directionsService.get(origin, destination, mode, key)
     }
 
     private fun latLngToString(latLng: LatLng):String{
@@ -38,6 +38,7 @@ internal class DirectionsAPI constructor(){
         @GET("json")
         fun get(@Query("origin") origin: String,
                 @Query("destination") destination: String,
+                @Query("mode") mode: String,
                 @Query("key") key: String): Observable<Direction>
 
         class Factory{
