@@ -101,8 +101,8 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
         return gMap.addPolyline(rectOptions)
     }
 
-    fun getDirection(startLatLng: LatLng, endLatLng: LatLng, callback: ((Direction) -> Unit)){
-        directionsAPI.getDirection(startLatLng, endLatLng)
+    fun getDirection(startLatLng: LatLng, endLatLng: LatLng, mode: String, callback: ((Direction) -> Unit)){
+        directionsAPI.getDirection(startLatLng, endLatLng, mode)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({
