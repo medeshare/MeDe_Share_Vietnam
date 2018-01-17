@@ -2,14 +2,18 @@ package mede.com.medesharevietnam
 
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.GoogleMapFragment
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.domain.directions.Routes
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import com.google.android.gms.location.places.ui.PlaceAutocomplete
+import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
+import mede.com.medesharevietnam.common.Const
 
 class MainActivity : AppCompatActivity() {
     lateinit var mapFragment: GoogleMapFragment
@@ -53,6 +57,19 @@ class MainActivity : AppCompatActivity() {
                     if (direction.routes.count() > 0) setDirection(direction.routes)
                     else Log.d("onWalking", "is not found")
                 })
+    }
+
+    fun onSearching(v: View){
+        val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this)
+        startActivityForResult(intent, Const.REQ_PLACE_AUTOCOMPLATE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == Const.REQ_PLACE_AUTOCOMPLATE)
+        if (resultCode == RESULT_OK) {
+            val place = PlacePicker.getPlace(data, this)
+
+        }
     }
 
     var directionLines: ArrayList<Polyline> = ArrayList()
