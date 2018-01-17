@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
                 LatLng(21.027544, 105.845984),
                 "driving",
                 {direction ->
+                    Log.d("driving count:",direction.routes.count().toString())
+
                     if (direction.routes.count() > 0) setDirection(direction.routes)
                     else Log.d("onDriving", "is not found")
                 })
@@ -77,6 +79,8 @@ class MainActivity : AppCompatActivity() {
                 LatLng(21.027544, 105.845984),
                 "walking",
                 {direction ->
+                    Log.d("walking count:",direction.routes.count().toString())
+
                     if (direction.routes.count() > 0) setDirection(direction.routes)
                     else Log.d("onWalking", "is not found")
                 })
@@ -92,6 +96,8 @@ class MainActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 val place = PlacePicker.getPlace(data, this)
                 tvSearch.text = place.name
+                
+                mapFragment.addMarker(place.latLng, "")
             }
         }
     }
