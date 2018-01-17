@@ -5,14 +5,18 @@ import a.mnisdh.com.kotlingooglemap.googleMapAPIs.domain.directions.Routes
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import com.google.android.gms.location.places.ui.PlaceAutocomplete
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
+import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setCustomActionbar()
         init()
     }
 
@@ -35,6 +40,24 @@ class MainActivity : AppCompatActivity() {
             setSample()
         })
         mapFragment.getMapAsync(mapFragment)
+    }
+
+    private fun setCustomActionbar() {
+        val actionBar = supportActionBar
+
+        actionBar!!.setDisplayShowCustomEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(false)
+        actionBar.setDisplayShowTitleEnabled(false)
+
+
+        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
+        actionBar.setCustomView(mCustomView)
+
+        val parent = mCustomView.getParent() as Toolbar
+        parent.setContentInsetsAbsolute(0, 0)
+
+        val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
+        actionBar.setCustomView(mCustomView, params)
     }
 
     fun onDriving(v: View){
@@ -65,10 +88,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == Const.REQ_PLACE_AUTOCOMPLATE)
-        if (resultCode == RESULT_OK) {
-            val place = PlacePicker.getPlace(data, this)
-
+        if(requestCode == Const.REQ_PLACE_AUTOCOMPLATE){
+            if (resultCode == RESULT_OK) {
+                val place = PlacePicker.getPlace(data, this)
+                tvSearch.text = place.name
+            }
         }
     }
 
@@ -94,8 +118,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     fun setSample(){
         setSample1Marker()
         setSample2Marker()
@@ -106,7 +128,7 @@ class MainActivity : AppCompatActivity() {
     var samples3: ArrayList<Marker> = ArrayList()
 
     fun setSample1Marker(){
-        var imgHospital = R.drawable.hospital
+        var imgHospital = R.drawable.ic_48_pin_hospital
         samples1.add(mapFragment.addMarker(LatLng(21.027544, 105.845984), "베트남암(癌)병원", imgHospital))
         samples1.add(mapFragment.addMarker(LatLng(21.025688, 105.851031), "베트남쿠바우정병원", imgHospital))
         samples1.add(mapFragment.addMarker(LatLng(21.028793, 105.838528), "하노이피부비뇨기과병원", imgHospital))
