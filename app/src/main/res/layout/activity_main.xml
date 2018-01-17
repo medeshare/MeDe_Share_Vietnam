@@ -18,6 +18,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <AutoCompleteTextView
+                android:id="@+id/tvMedeSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/tvSearch"
                 android:layout_width="match_parent"
