@@ -13,6 +13,7 @@ import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
+import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
 
 class MainActivity : AppCompatActivity() {
@@ -65,10 +66,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == Const.REQ_PLACE_AUTOCOMPLATE)
-        if (resultCode == RESULT_OK) {
-            val place = PlacePicker.getPlace(data, this)
-
+        if(requestCode == Const.REQ_PLACE_AUTOCOMPLATE){
+            if (resultCode == RESULT_OK) {
+                val place = PlacePicker.getPlace(data, this)
+                tvSearch.text = place.name
+            }
         }
     }
 
