@@ -28,6 +28,10 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
     private var directionsAPI: DirectionsAPI
 
     private var onMapReadied: () -> Unit = {}
+    fun setOnMapReadied(onMapReadied: () -> Unit){ this.onMapReadied = onMapReadied }
+
+    private var onMarkerClicked: (Marker?) -> Unit = {}
+    fun setOnMarkerClicked(onMarkerClicked: (Marker?) -> Unit){ this.onMarkerClicked = onMarkerClicked }
 
     init {
         directionsAPI = DirectionsAPI()
@@ -42,8 +46,18 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         gMap = map as GoogleMap
+        initEvents()
 
         onMapReadied()
+    }
+
+    private fun initEvents(){
+        gMap.setOnMarkerClickListener(object: GoogleMap.OnMarkerClickListener{
+            override fun onMarkerClick(p0: Marker?): Boolean {
+                onMarkerClicked(p0)
+                return true
+            }
+        })
     }
 
     @SuppressLint("MissingPermission")
@@ -60,10 +74,6 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
                 }, {})
             } else gMap.setMyLocationEnabled(use)
         } else gMap.setMyLocationEnabled(use)
-    }
-
-    fun setOnMapReadied(onMapReadied: () -> Unit){
-        this.onMapReadied = onMapReadied
     }
 
     fun addMarker(latLng: LatLng, title: String):Marker{
