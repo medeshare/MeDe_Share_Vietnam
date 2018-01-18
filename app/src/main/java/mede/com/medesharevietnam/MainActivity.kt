@@ -23,6 +23,8 @@ import mede.com.medesharevietnam.domain.medical.MediDisease
 
 class MainActivity : AppCompatActivity() {
     lateinit var mapFragment: GoogleMapFragment
+    var selectedDisease: MediDisease? = null
+    var markers: ArrayList<Marker> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +43,12 @@ class MainActivity : AppCompatActivity() {
             mapFragment.moveToCamera(latLng, 13F)
             mapFragment.setUseLocation(this, true)
 
-            setSample()
+            //setSample()
         })
         mapFragment.getMapAsync(mapFragment)
     }
 
-    private fun initView(){
+    private fun getTempMediDisease():ArrayList<MediDisease>{
         var diseases = ArrayList<MediDisease>();
         diseases.add(MediDisease("s01", "m01", "dislocation", ""))
         diseases.add(MediDisease("s02", "m01", "fracture", ""))
@@ -90,9 +92,13 @@ class MainActivity : AppCompatActivity() {
         diseases.add(MediDisease("s40", "m05", "Dental care", ""))
         diseases.add(MediDisease("s41", "m05", "teeth whitening", ""))
 
-        tvMedeSearch.setThreshold(1);
-        var adapter = MediAutoCompleteAdapter(this, R.layout.activity_main, R.id.tvDiseaseName, diseases)
-        tvMedeSearch.setAdapter(adapter)
+        return diseases
+    }
+    private fun initView(){
+        tvMediSearch.setThreshold(1);
+        var adapter = MediAutoCompleteAdapter(this, R.layout.activity_main, R.id.tvDiseaseName, getTempMediDisease())
+        tvMediSearch.setAdapter(adapter)
+        tvMediSearch.setOnItemClickListener { adapterView, view, i, l -> selectedDisease = adapter.getItem(i) }
     }
 
     private fun setCustomActionbar() {
@@ -111,6 +117,33 @@ class MainActivity : AppCompatActivity() {
 
         val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
         actionBar.setCustomView(mCustomView, params)
+    }
+
+    private fun clearMarker(){
+        for(marker in markers){
+            marker.remove()
+        }
+
+        markers.clear()
+    }
+
+    fun onMediSearch(v: View){
+        if(selectedDisease != null){
+            clearMarker()
+
+            var locations = selectedDisease!!.getMediSubject().getLocations()
+
+            for(location in locations){
+                var latlng = LatLng(location.lat, location.lng)
+                var icon = 0
+                if(location.type == "1") icon = R.drawable.ic_48_pin_doctor
+                else icon = R.drawable.ic_48_pin_pharmacy
+
+                markers.add(mapFragment.addMarker(latlng, location.name, icon))
+            }
+
+            mapFragment.zoomToFit(markers, 10)
+        }
     }
 
     fun onDriving(v: View){
@@ -148,7 +181,7 @@ class MainActivity : AppCompatActivity() {
         if(requestCode == Const.REQ_PLACE_AUTOCOMPLATE){
             if (resultCode == RESULT_OK) {
                 val place = PlacePicker.getPlace(data, this)
-                tvSearch.text = place.name
+                //tvSearch.text = place.name
                 
                 mapFragment.addMarker(place.latLng, "")
             }
