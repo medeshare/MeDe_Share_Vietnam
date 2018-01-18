@@ -95,10 +95,31 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
     }
 
     fun zoomToFit(latLng1: LatLng, latLng2: LatLng){
-        zoomToFit(LatLngBounds(latLng1, latLng2))
+        zoomToFit(LatLngBounds(latLng1, latLng2), 0)
     }
     fun zoomToFit(latLngBounds: LatLngBounds){
-        gMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 0))
+        zoomToFit(latLngBounds, 0)
+    }
+    fun zoomToFit(latLngBounds: LatLngBounds, zoomLevel: Int){
+        gMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, zoomLevel))
+    }
+    fun zoomToFit(markers: ArrayList<Marker>, zoomLevel:Int){
+        var minLat = 99999999.9
+        var maxLat = -99999999.9
+        var minLng = 99999999.9
+        var maxLng = -99999999.9
+
+        for(marker in markers){
+            var lat = marker.position.latitude
+            var lng = marker.position.longitude
+            if(lat >= maxLat) maxLat = lat
+            if(lat <= minLat) minLat = lat
+            if(lng >= maxLng) maxLng = lng
+            if(lng <= minLng) minLng = lng
+        }
+
+        //zoomToFit(LatLngBounds(LatLng(minLat - 0.0005, minLng - 0.0005), LatLng(maxLat + 0.0005, maxLng + 0.0005)))
+        zoomToFit(LatLngBounds(LatLng(minLat, minLng), LatLng(maxLat, maxLng)), zoomLevel)
     }
 
     fun drawPolyline(latLngs: List<LatLng>, color: Int, width: Float): Polyline{
