@@ -2,8 +2,13 @@ package mede.com.medesharevietnam
 
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.GoogleMapFragment
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.domain.directions.Routes
+import a.mnisdh.com.kotlingooglemap.util.PermissionUtil
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -11,19 +16,32 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import com.google.android.gms.location.*
 import com.google.android.gms.location.places.ui.PlaceAutocomplete
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
+import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
 import mede.com.medesharevietnam.domain.medical.MediDisease
 
+
+
+
+
 class MainActivity : AppCompatActivity() {
+    private val REQ_PERMISSION: Int = 991
+    private var successedPermissions: ArrayList<String> = ArrayList()
+
     lateinit var mapFragment: GoogleMapFragment
+    var locationClient: FusedLocationProviderClient? = null
     var selectedDisease: MediDisease? = null
+
+    var markerLocation: Marker? = null
+    lateinit var markerHospital: Marker
     var markers: ArrayList<Marker> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,17 +52,72 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
+    private fun permissionCheck(activity: Activity, permissions: ArrayList<String>, success: (() -> Unit), failed: (() -> Unit)){
+        if(permissions.count() > 0) {
+            val permissionUtil = PermissionUtil(REQ_PERMISSION, permissions)
+            permissionUtil.check(activity, success, failed)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun checkLocationPermission(use: Boolean) {
+        var permission: String = Manifest.permission.ACCESS_FINE_LOCATION
+
+        if (use) {
+            if (!successedPermissions.contains(permission)) {
+                var permissions: ArrayList<String> = ArrayList()
+                permissions.add(permission)
+                permissionCheck(this, permissions, {
+                    successedPermissions.add(permission)
+                    initLocationClient()
+                }, {
+                    initFirstLocation(markerHospital.position.latitude, markerHospital.position.longitude)
+                })
+            } else if(use) initLocationClient()
+        } else if(use) initLocationClient()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initLocationClient(){
+        locationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        locationClient!!.lastLocation.addOnSuccessListener(this, object : OnSuccessListener<Location> {
+            override fun onSuccess(location:Location) {
+                if (location != null) {
+                    updateMarkerLocation(location.latitude, location.longitude)
+                    initFirstLocation(location.latitude, location.longitude)
+                }
+            }
+        })
+
+        var request = LocationRequest()
+        request.interval = 1000
+        request.fastestInterval = 5000
+        request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+        locationClient!!.requestLocationUpdates(request, object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                for (location in locationResult!!.locations) {
+                    updateMarkerLocation(location.latitude, location.longitude)
+                }
+            }
+        }, null)
+    }
+
+    fun initFirstLocation(lat: Double, lng: Double){
+        mapFragment.moveToCamera(LatLng(lat, lng), 13F)
+    }
+
     fun init() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as GoogleMapFragment
-        mapFragment.setOnMapReadied({
+        mapFragment.setOnMapReadied{
             initView()
 
-            var latLng = LatLng(21.004060, 105.840235)
-            mapFragment.moveToCamera(latLng, 13F)
-            mapFragment.setUseLocation(this, true)
+            var latLng = LatLng(21.083026, 105.780140)
+            markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
 
-            //setSample()
-        })
+            checkLocationPermission(true)
+        }
         mapFragment.getMapAsync(mapFragment)
     }
 
@@ -125,6 +198,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         markers.clear()
+    }
+
+    private fun updateMarkerLocation(lat:Double, lng:Double){
+        var latLng = LatLng(lat, lng)
+        if(markerLocation == null){
+            markerLocation = mapFragment.addMarker(latLng, "My location", R.drawable.ic_75_point)
+        }
+        else markerLocation!!.position = latLng
     }
 
     fun onMediSearch(v: View){
@@ -210,29 +291,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setSample(){
-        setSample1Marker()
-        setSample2Marker()
-    }
-
-    var samples1: ArrayList<Marker> = ArrayList()
-    var samples2: ArrayList<Marker> = ArrayList()
-    var samples3: ArrayList<Marker> = ArrayList()
-
-    fun setSample1Marker(){
-        var imgHospital = R.drawable.ic_48_pin_hospital
-        samples1.add(mapFragment.addMarker(LatLng(21.027544, 105.845984), "베트남암(癌)병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.025688, 105.851031), "베트남쿠바우정병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.028793, 105.838528), "하노이피부비뇨기과병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.024582, 105.843881), "하노이심장병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.016731, 105.848393), "중앙전통의학병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.018801, 105.860589), "병원타임시티", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.015517, 105.861927), "베트남우정병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.004060, 105.840235), "하노이프랑스병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.000608, 105.839666), "베트남심장혈관병원", imgHospital))
-        samples1.add(mapFragment.addMarker(LatLng(21.010053, 105.801130), "행림 한의원 하노이", imgHospital))
-    }
-    fun setSample2Marker(){
-
-    }
 }

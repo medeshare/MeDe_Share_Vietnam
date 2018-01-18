@@ -1,10 +1,6 @@
 package a.mnisdh.com.kotlingooglemap.googleMapAPIs
 
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.domain.directions.Direction
-import a.mnisdh.com.kotlingooglemap.util.PermissionUtil
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.util.Log
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,9 +17,6 @@ import io.reactivex.schedulers.Schedulers
  * Created by daeho on 2018. 1. 5..
  */
 class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
-    private val REQ_PERMISSION: Int = 991
-    private var successedPermissions: ArrayList<String> = ArrayList()
-
     private lateinit var gMap: GoogleMap
     private var directionsAPI: DirectionsAPI
 
@@ -35,13 +28,6 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
 
     init {
         directionsAPI = DirectionsAPI()
-    }
-
-    private fun permissionCheck(activity: Activity, permissions: ArrayList<String>, success: (() -> Unit), failed: (() -> Unit)){
-        if(permissions.count() > 0) {
-            val permissionUtil = PermissionUtil(REQ_PERMISSION, permissions)
-            permissionUtil.check(activity, success, failed)
-        }
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -58,22 +44,6 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
                 return true
             }
         })
-    }
-
-    @SuppressLint("MissingPermission")
-    fun setUseLocation(activity: Activity, use: Boolean) {
-        var permission: String = Manifest.permission.ACCESS_FINE_LOCATION
-
-        if (use) {
-            if (!successedPermissions.contains(permission)) {
-                var permissions: ArrayList<String> = ArrayList()
-                permissions.add(permission)
-                permissionCheck(activity, permissions, {
-                    successedPermissions.add(permission)
-                    gMap.setMyLocationEnabled(use)
-                }, {})
-            } else gMap.setMyLocationEnabled(use)
-        } else gMap.setMyLocationEnabled(use)
     }
 
     fun addMarker(latLng: LatLng, title: String):Marker{
