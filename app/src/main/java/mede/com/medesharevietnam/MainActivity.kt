@@ -18,8 +18,8 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
-import mede.com.medesharevietnam.custom.MediAdapter
-import mede.com.medesharevietnam.domain.Disease
+import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
+import mede.com.medesharevietnam.domain.medical.MediDisease
 
 class MainActivity : AppCompatActivity() {
     lateinit var mapFragment: GoogleMapFragment
@@ -47,51 +47,51 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView(){
-        var diseases = ArrayList<Disease>();
-        diseases.add(Disease("s01", "m01", "dislocation", ""))
-        diseases.add(Disease("s02", "m01", "fracture", ""))
-        diseases.add(Disease("s03", "m01", "nerve pain (sharp pain)", ""))
-        diseases.add(Disease("s04", "m01", "musculoskeletal pain", ""))
-        diseases.add(Disease("s05", "m01", "Back pain", ""))
-        diseases.add(Disease("s06", "m01", "lie back", ""))
-        diseases.add(Disease("s07", "m01", "shoulder pain", ""))
-        diseases.add(Disease("s08", "m01", "neck pain", ""))
-        diseases.add(Disease("s09", "m01", "Movement ", ""))
-        diseases.add(Disease("s10", "m02", "Stomach pain", ""))
-        diseases.add(Disease("s11", "m02", "chest pain", ""))
-        diseases.add(Disease("s12", "m02", "Breathing difficulty", ""))
-        diseases.add(Disease("s13", "m02", "fever/temperature", ""))
-        diseases.add(Disease("s14", "m02", "cold", ""))
-        diseases.add(Disease("s15", "m02", "vomit", ""))
-        diseases.add(Disease("s16", "m02", "heart", ""))
-        diseases.add(Disease("s17", "m02", "skin check", ""))
-        diseases.add(Disease("s18", "m02", "diabetes", ""))
-        diseases.add(Disease("s19", "m02", "high blood pressure", ""))
-        diseases.add(Disease("s20", "m02", "travel medicine", ""))
-        diseases.add(Disease("s21", "m02", "Immunisation", ""))
-        diseases.add(Disease("s22", "m02", "sexual health", ""))
-        diseases.add(Disease("s23", "m02", "Mental health", ""))
-        diseases.add(Disease("s24", "m02", "flu vaccination", ""))
-        diseases.add(Disease("s25", "m03", "Sore throat", ""))
-        diseases.add(Disease("s26", "m03", "ear pain", ""))
-        diseases.add(Disease("s27", "m03", "hearing loss", ""))
-        diseases.add(Disease("s28", "m03", "cough", ""))
-        diseases.add(Disease("s29", "m03", "vocal change", ""))
-        diseases.add(Disease("s30", "m03", "blocked nose", ""))
-        diseases.add(Disease("s31", "m03", "nose bleed (epistaxis)", ""))
-        diseases.add(Disease("s32", "m04", "Vision changes", ""))
-        diseases.add(Disease("s33", "m04", "eye pain", ""))
-        diseases.add(Disease("s34", "m04", "eye discharge", ""))
-        diseases.add(Disease("s35", "m04", "double vision (diplopia)", ""))
-        diseases.add(Disease("s36", "m04", "eye pressure", ""))
-        diseases.add(Disease("s37", "m05", "toothache", ""))
-        diseases.add(Disease("s38", "m05", "gum bleeding", ""))
-        diseases.add(Disease("s39", "m05", "tooth fracture", ""))
-        diseases.add(Disease("s40", "m05", "Dental care", ""))
-        diseases.add(Disease("s41", "m05", "teeth whitening", ""))
+        var diseases = ArrayList<MediDisease>();
+        diseases.add(MediDisease("s01", "m01", "dislocation", ""))
+        diseases.add(MediDisease("s02", "m01", "fracture", ""))
+        diseases.add(MediDisease("s03", "m01", "nerve pain (sharp pain)", ""))
+        diseases.add(MediDisease("s04", "m01", "musculoskeletal pain", ""))
+        diseases.add(MediDisease("s05", "m01", "Back pain", ""))
+        diseases.add(MediDisease("s06", "m01", "lie back", ""))
+        diseases.add(MediDisease("s07", "m01", "shoulder pain", ""))
+        diseases.add(MediDisease("s08", "m01", "neck pain", ""))
+        diseases.add(MediDisease("s09", "m01", "Movement ", ""))
+        diseases.add(MediDisease("s10", "m02", "Stomach pain", ""))
+        diseases.add(MediDisease("s11", "m02", "chest pain", ""))
+        diseases.add(MediDisease("s12", "m02", "Breathing difficulty", ""))
+        diseases.add(MediDisease("s13", "m02", "fever/temperature", ""))
+        diseases.add(MediDisease("s14", "m02", "cold", ""))
+        diseases.add(MediDisease("s15", "m02", "vomit", ""))
+        diseases.add(MediDisease("s16", "m02", "heart", ""))
+        diseases.add(MediDisease("s17", "m02", "skin check", ""))
+        diseases.add(MediDisease("s18", "m02", "diabetes", ""))
+        diseases.add(MediDisease("s19", "m02", "high blood pressure", ""))
+        diseases.add(MediDisease("s20", "m02", "travel medicine", ""))
+        diseases.add(MediDisease("s21", "m02", "Immunisation", ""))
+        diseases.add(MediDisease("s22", "m02", "sexual health", ""))
+        diseases.add(MediDisease("s23", "m02", "Mental health", ""))
+        diseases.add(MediDisease("s24", "m02", "flu vaccination", ""))
+        diseases.add(MediDisease("s25", "m03", "Sore throat", ""))
+        diseases.add(MediDisease("s26", "m03", "ear pain", ""))
+        diseases.add(MediDisease("s27", "m03", "hearing loss", ""))
+        diseases.add(MediDisease("s28", "m03", "cough", ""))
+        diseases.add(MediDisease("s29", "m03", "vocal change", ""))
+        diseases.add(MediDisease("s30", "m03", "blocked nose", ""))
+        diseases.add(MediDisease("s31", "m03", "nose bleed (epistaxis)", ""))
+        diseases.add(MediDisease("s32", "m04", "Vision changes", ""))
+        diseases.add(MediDisease("s33", "m04", "eye pain", ""))
+        diseases.add(MediDisease("s34", "m04", "eye discharge", ""))
+        diseases.add(MediDisease("s35", "m04", "double vision (diplopia)", ""))
+        diseases.add(MediDisease("s36", "m04", "eye pressure", ""))
+        diseases.add(MediDisease("s37", "m05", "toothache", ""))
+        diseases.add(MediDisease("s38", "m05", "gum bleeding", ""))
+        diseases.add(MediDisease("s39", "m05", "tooth fracture", ""))
+        diseases.add(MediDisease("s40", "m05", "Dental care", ""))
+        diseases.add(MediDisease("s41", "m05", "teeth whitening", ""))
 
         tvMedeSearch.setThreshold(1);
-        var adapter = MediAdapter(this, R.layout.activity_main, R.id.tvName, diseases)
+        var adapter = MediAutoCompleteAdapter(this, R.layout.activity_main, R.id.tvDiseaseName, diseases)
         tvMedeSearch.setAdapter(adapter)
     }
 

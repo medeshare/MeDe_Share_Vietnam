@@ -1,4 +1,4 @@
-package mede.com.medesharevietnam.domain
+package mede.com.medesharevietnam.domain.medical
 
 /**
  * Created by daeho on 2018. 1. 17..
@@ -11,7 +11,7 @@ class MediLocation{
     var lng:Double = 0.0
     var name:String = ""
     var description:String = ""
-    var mediSubject:MediSubject? = null
+    var mediSubject: MediSubject? = null
         private set(value) {field = value}
 
     constructor(){}
