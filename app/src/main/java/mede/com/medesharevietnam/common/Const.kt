@@ -5,4 +5,5 @@ package mede.com.medesharevietnam.common
  */
 object Const {
     val REQ_PLACE_AUTOCOMPLATE = 991
+    val REQ_DISEASE_AUTOCOMPLETE = 992
 }
