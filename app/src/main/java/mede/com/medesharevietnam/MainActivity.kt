@@ -7,7 +7,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
@@ -26,9 +25,10 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import mede.com.medesharevietnam.common.Const
-import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
 import mede.com.medesharevietnam.databinding.BottomDoctorInfomationBinding
 import mede.com.medesharevietnam.domain.Doctor
+import mede.com.medesharevietnam.domain.medical.MediDisease
+import mede.com.medesharevietnam.domain.medical.MediLocation
 
 
 class MainActivity : AppCompatActivity() {
