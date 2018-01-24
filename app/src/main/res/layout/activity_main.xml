@@ -10,7 +10,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:background="#1990ff"
         android:elevation="0dp"
@@ -23,8 +23,8 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1890ff"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            android:background="#1890ff">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,22 +37,22 @@
                     android:background="#1990ff"
                     android:orientation="horizontal"
                     android:padding="12dp">
-                
-                  <TextView
-                    android:id="@+id/txtMediSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_weight="1"
-                    android:background="#ffffff"
-                    android:gravity="fill_vertical"
-                    android:hint="Type your symptom here"
-                    android:onClick="onSearch"
-                    android:paddingLeft="13dp"
-                    android:paddingRight="13dp"
-                    android:textColor="#9b9b9b"
-                    android:textSize="18sp" />
-                  
-                  <ImageButton
+
+                    <TextView
+                        android:id="@+id/txtMediSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:gravity="fill_vertical"
+                        android:hint="Type your symptom here"
+                        android:onClick="onSearch"
+                        android:paddingLeft="13dp"
+                        android:paddingRight="13dp"
+                        android:textColor="#9b9b9b"
+                        android:textSize="18sp" />
+
+                    <ImageButton
                         android:id="@+id/btnMediSearch"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -79,6 +79,6 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <include layout="@layout/bottom_doctor_infomation"/>
+    <include layout="@layout/bottom_doctor_infomation" android:id="@+id/bottomSheet"/>
 
 </android.support.design.widget.CoordinatorLayout>

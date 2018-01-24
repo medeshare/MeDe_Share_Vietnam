@@ -7,6 +7,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
+import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.databinding.BottomDoctorInfomationBinding
 import mede.com.medesharevietnam.domain.Doctor
@@ -111,6 +113,7 @@ class MainActivity : AppCompatActivity() {
     fun init() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as GoogleMapFragment
         mapFragment.setOnMapReadied{
+            bottomBinding = DataBindingUtil.bind(bottomSheet)
 
             var latLng = LatLng(21.083026, 105.780140)
             markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
@@ -129,9 +132,9 @@ class MainActivity : AppCompatActivity() {
                         isDoctor = true
                         var doctor = Doctor()
                         doctor.key = "1"
-                        doctor.name = "test doctor"
+                        doctor.name = mediLocation.name
                         doctor.rank = "4.2"
-                        doctor.subjectName = "test subject"
+                        if(mediLocation.mediSubject != null) doctor.subjectName = mediLocation.mediSubject!!.name
 
                         bottomBinding.doctor = doctor
                     }
@@ -243,7 +246,9 @@ class MainActivity : AppCompatActivity() {
             if(location.type == "1") icon = R.drawable.ic_48_pin_doctor
             else icon = R.drawable.ic_48_pin_pharmacy
 
-            markers.add(mapFragment.addMarker(latlng, location.name, icon))
+            var marker = mapFragment.addMarker(latlng, location.name, icon)
+            marker.tag = location
+            markers.add(marker)
         }
 
         mapFragment.zoomToFit(markers, 10)

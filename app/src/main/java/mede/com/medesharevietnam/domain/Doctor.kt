@@ -10,8 +10,8 @@ class Doctor {
     var imageUrl:String = ""
     var rank:String = ""
     var phoneNumber:String = ""
-    var callImageResource:Int = 0
-    var chatImageResource:Int = 1
+    var callImageResource:Int = mede.com.medesharevietnam.R.drawable.ic_30_call
+    var chatImageResource:Int = mede.com.medesharevietnam.R.drawable.ic_30_chat
     var useCircleImage:Boolean = true
     var tag:Any? = null
 
