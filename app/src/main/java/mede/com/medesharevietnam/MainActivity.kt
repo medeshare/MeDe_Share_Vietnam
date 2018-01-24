@@ -23,9 +23,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
-import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
-import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
 import mede.com.medesharevietnam.domain.medical.MediDisease
 
 
@@ -111,7 +109,6 @@ class MainActivity : AppCompatActivity() {
     fun init() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as GoogleMapFragment
         mapFragment.setOnMapReadied{
-            initView()
 
             var latLng = LatLng(21.083026, 105.780140)
             markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
@@ -167,12 +164,6 @@ class MainActivity : AppCompatActivity() {
 
         return diseases
     }
-    private fun initView(){
-        tvMediSearch.setThreshold(1);
-        var adapter = MediAutoCompleteAdapter(this, R.layout.activity_main, R.id.tvDiseaseName, getTempMediDisease())
-        tvMediSearch.setAdapter(adapter)
-        tvMediSearch.setOnItemClickListener { adapterView, view, i, l -> selectedDisease = adapter.getItem(i) }
-    }
 
     private fun setCustomActionbar() {
         val actionBar = supportActionBar
@@ -180,6 +171,7 @@ class MainActivity : AppCompatActivity() {
         actionBar!!.setDisplayShowCustomEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(false)
         actionBar.setDisplayShowTitleEnabled(false)
+        actionBar.elevation=0f
 
 
         val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
@@ -206,6 +198,29 @@ class MainActivity : AppCompatActivity() {
             markerLocation = mapFragment.addMarker(latLng, "My location", R.drawable.ic_75_point)
         }
         else markerLocation!!.position = latLng
+    }
+
+    fun onSearch(v: View){
+        val intent = Intent(this, SearchActivity::class.java)
+        startActivityForResult(intent,Const.REQ_DISEASE_AUTOCOMPLETE)
+        overridePendingTransition(0, 0)
+    }
+
+    fun search(selectedDisease: MediDisease?){
+        clearMarker()
+
+        var locations = selectedDisease!!.getMediSubject().getLocations()
+
+        for(location in locations){
+            var latlng = LatLng(location.lat, location.lng)
+            var icon = 0
+            if(location.type == "1") icon = R.drawable.ic_48_pin_doctor
+            else icon = R.drawable.ic_48_pin_pharmacy
+
+            markers.add(mapFragment.addMarker(latlng, location.name, icon))
+        }
+
+        mapFragment.zoomToFit(markers, 10)
     }
 
     fun onMediSearch(v: View){
@@ -265,6 +280,11 @@ class MainActivity : AppCompatActivity() {
                 //tvSearch.text = place.name
                 
                 mapFragment.addMarker(place.latLng, "")
+            }
+        }else if(requestCode == Const.REQ_DISEASE_AUTOCOMPLETE){
+            if(resultCode == RESULT_OK) {
+                selectedDisease = data?.getSerializableExtra("Disease") as MediDisease
+                search(selectedDisease)
             }
         }
     }
