@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 object DataBinder {
     @JvmStatic
     @BindingAdapter("image_url")
-    fun setImageUrl(v: ImageView, imageUrl: String) {
+    fun setImageUrl(v: ImageView, imageUrl: String?) {
         if (imageUrl == null || imageUrl == "") return
 
         var requestOptions = RequestOptions().override(v.width, v.height).circleCrop()
@@ -38,7 +38,7 @@ object DataBinder {
 
     @JvmStatic
     @BindingAdapter("image_url")
-    fun setImageUrl(v: ImageButton, imageUrl: String) {
+    fun setImageUrl(v: ImageButton, imageUrl: String?) {
         if (imageUrl == null || imageUrl == "") return
 
         var requestOptions = RequestOptions().override(v.width, v.height).circleCrop()
