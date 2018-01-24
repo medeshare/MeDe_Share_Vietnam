@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <data>
+        <!--import type="android.view.View" /-->
+        <variable
+            name="doctor"
+            type="mede.com.medesharevietnam.domain.Doctor" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/stage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/topStage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
+
+            <ImageButton
+                android:id="@+id/btnChat"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/ivProfile"
+                app:image_url="@{doctor.chatImageResource}" />
+
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                app:image_url="@{doctor.imageUrl}" />
+
+            <ImageButton
+                android:id="@+id/btnCall"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ivProfile"
+                app:image_url="@{doctor.callImageResource}" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topStage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="@{doctor.name}"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/tvSubjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_marginTop="1dp"
+            android:text="@{doctor.subjectName}"
+            android:textAlignment="center" />
+
+        <RelativeLayout
+            android:id="@+id/rankStage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSubjectName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp">
+
+            <ImageView
+                android:id="@+id/ivRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_13_rank_full" />
+
+            <TextView
+                android:id="@+id/tvRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/ivRank"
+                android:text="@{doctor.rank}" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottomStage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rankStage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/ivPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_13_map_pin_nor" />
+
+            <TextView
+                android:id="@+id/tvMeter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ivPin"
+                android:paddingLeft="2dp"
+                android:paddingRight="11dp"
+                android:text="45m" />
+
+            <TextView
+                android:id="@+id/tvLocationInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvMeter"
+                android:text="Location Infomation" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnMatching"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/bottomStage"
+            android:layout_marginTop="24dp"
+            android:background="#1990ff"
+            android:text="Matching"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</layout>
