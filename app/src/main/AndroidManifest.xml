@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchActivity" />
+        <activity android:name=".MatchingActivity"/>
         <activity android:name=".controller.DoctorMatchActivity"></activity>
     </application>
 
