@@ -14,8 +14,6 @@ import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.match.DoctorAbout
 import mede.com.medesharevietnam.domain.match.DoctorReviews
 
-
-
 class DoctorMatchActivity : AppCompatActivity() {
     var doctorKey:String = ""
 
@@ -54,5 +52,4 @@ class DoctorMatchActivity : AppCompatActivity() {
         val intentMatching = Intent(this, MatchingActivity::class.java)
         startActivity(intentMatching)
     }
-
 }
