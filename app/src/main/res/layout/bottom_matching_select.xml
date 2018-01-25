@@ -81,6 +81,6 @@
             android:text="Next"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            android:onClick="onSelecting_1"/>
+            android:onClick="onSelectingLocation"/>
     </RelativeLayout>
 </layout>

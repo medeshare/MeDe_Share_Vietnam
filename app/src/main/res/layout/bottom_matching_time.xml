@@ -28,7 +28,6 @@
             android:background="#c4c4c4"
             android:text="Next"
             android:textColor="#ffffff"
-            android:textSize="18sp"
-            android:onClick="onSelecting_2"/>
+            android:textSize="18sp"/>
     </RelativeLayout>
 </layout>

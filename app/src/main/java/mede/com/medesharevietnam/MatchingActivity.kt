@@ -34,13 +34,9 @@ class MatchingActivity : AppCompatActivity() {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
     }
 
-    fun onSelecting_1(v: View){
+    fun onSelectingLocation(v: View){
         var bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetMatchingTime)
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-    }
-
-    fun onSelecting_2(v: View){
-
     }
 
     fun init() {

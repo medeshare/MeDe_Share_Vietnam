@@ -57,11 +57,6 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
-    fun onMatching(){
-        val intentMatching = Intent(this, MatchingActivity::class.java)
-        startActivity(intentMatching)
-    }
-
     private fun permissionCheck(activity: Activity, permissions: ArrayList<String>, success: (() -> Unit), failed: (() -> Unit)){
         if(permissions.count() > 0) {
             val permissionUtil = PermissionUtil(REQ_PERMISSION, permissions)
@@ -393,5 +388,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
