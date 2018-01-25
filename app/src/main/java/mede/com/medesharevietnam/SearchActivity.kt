@@ -5,13 +5,20 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.activity_search.*
 import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
+import mede.com.medesharevietnam.custom.RecyclerAdapter
+import mede.com.medesharevietnam.domain.SearchData
 import mede.com.medesharevietnam.domain.medical.MediDisease
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SearchActivity : AppCompatActivity() {
     var selectedDisease: MediDisease? = null
@@ -49,7 +56,24 @@ class SearchActivity : AppCompatActivity() {
         tvMediSearch.setThreshold(1);
         var adapter = MediAutoCompleteAdapter(this, R.layout.activity_main, R.id.tvDiseaseName, getTempMediDisease())
         tvMediSearch.setAdapter(adapter)
-        tvMediSearch.setOnItemClickListener { adapterView, view, i, l -> selectedDisease = adapter.getItem(i)}
+
+
+        var recyclerAdapter = RecyclerAdapter(this){ data -> tvMediSearch.setText(data.disease)}
+        recyclerView.adapter = recyclerAdapter
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.reverseLayout= true
+        linearLayoutManager.stackFromEnd = true
+        recyclerView.layoutManager = linearLayoutManager
+
+        tvMediSearch.setOnItemClickListener {
+            adapterView, view, i,
+            l -> selectedDisease = adapter.getItem(i)
+            recyclerAdapter.addDataAndRefresh(SearchData(adapter.getItem(i).name, getDate()))
+            checkSize(recyclerAdapter.getItemSize())
+        }
+
+        checkSize(recyclerAdapter.getItemSize())
     }
 
     fun onMediSearch(v: View){
@@ -114,5 +138,26 @@ class SearchActivity : AppCompatActivity() {
         setResult(Activity.RESULT_CANCELED,intent)
         finish()
         overridePendingTransition(0, 0)
+    }
+
+    fun getDate() : String{
+        var now = System.currentTimeMillis()
+        var date = Date(now)
+        var sdf = SimpleDateFormat("MM-dd")
+        return sdf.format(date)
+    }
+
+    fun checkSize(size:Int){
+        if(size==0){
+            txtNoRecent.visibility = VISIBLE
+            txtRecentSearch.visibility = GONE
+            recyclerView.visibility = GONE
+            cardView_Search.visibility = GONE
+        }else{
+            txtNoRecent.visibility = GONE
+            txtRecentSearch.visibility = VISIBLE
+            recyclerView.visibility = VISIBLE
+            cardView_Search.visibility = VISIBLE
+        }
     }
 }
