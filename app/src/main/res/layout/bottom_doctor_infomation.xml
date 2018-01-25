@@ -9,14 +9,15 @@
         <!--import type="android.view.View" /-->
         <variable
             name="doctor"
-            type="mede.com.medesharevietnam.domain.Doctor" />
+            type="mede.com.medesharevietnam.domain.match.Doctor" />
     </data>
 
     <RelativeLayout
         android:id="@+id/stage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:clickable="true">
 
         <RelativeLayout
             android:id="@+id/topStage"
@@ -30,7 +31,7 @@
                 android:layout_height="46dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/ivProfile"
-                app:image_url="@{doctor.chatImageResource}" />
+                app:srcCompat="@drawable/btn_46_chat" />
 
             <ImageView
                 android:id="@+id/ivProfile"
@@ -48,7 +49,8 @@
                 android:layout_height="46dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/ivProfile"
-                app:image_url="@{doctor.callImageResource}" />
+                android:onClick="onCall"
+                app:srcCompat="@drawable/btn_46_call" />
         </RelativeLayout>
 
         <TextView
@@ -138,6 +140,7 @@
             android:layout_below="@+id/bottomStage"
             android:layout_marginTop="24dp"
             android:background="#1990ff"
+            android:onClick="onMatching"
             android:text="Matching"
             android:textColor="#ffffff"
             android:textSize="18sp" />

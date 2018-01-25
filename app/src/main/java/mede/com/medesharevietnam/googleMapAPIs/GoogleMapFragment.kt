@@ -26,6 +26,9 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
     private var onMarkerClicked: (Marker?) -> Unit = {}
     fun setOnMarkerClicked(onMarkerClicked: (Marker?) -> Unit){ this.onMarkerClicked = onMarkerClicked }
 
+    private var onMapClicked: () -> Unit = {}
+    fun setOnMapClicked(onMapClicked: () -> Unit){ this.onMapClicked = onMapClicked }
+
     init {
         directionsAPI = DirectionsAPI()
     }
@@ -38,12 +41,11 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
     }
 
     private fun initEvents(){
-        gMap.setOnMarkerClickListener(object: GoogleMap.OnMarkerClickListener{
-            override fun onMarkerClick(p0: Marker?): Boolean {
-                onMarkerClicked(p0)
-                return true
-            }
-        })
+        gMap.setOnMarkerClickListener { marker ->
+            onMarkerClicked(marker)
+            true
+        }
+        gMap.setOnMapClickListener { latLng -> onMapClicked() }
     }
 
     fun addMarker(latLng: LatLng, title: String):Marker{
