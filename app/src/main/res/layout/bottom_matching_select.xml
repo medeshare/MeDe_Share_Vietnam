@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <RelativeLayout
+        android:id="@+id/stage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+        <FrameLayout
+            android:id="@+id/topStage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
+
+            <ImageButton
+                android:id="@+id/btnMyHouse"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="74dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/btn_56_myhouse" />
+
+            <ImageButton
+                android:id="@+id/btnDoctorHouse"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="74dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/btn_56_dchouse" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/bottomStage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topStage"
+            android:layout_marginTop="7dp">
+
+            <TextView
+                android:id="@+id/infoMyHouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:layout_marginRight="74dp"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="normal"
+                android:textColor="#333333"
+                android:text="At My House" />
+
+            <TextView
+                android:id="@+id/infoDoctorHouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="74dp"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="normal"
+                android:textColor="#333333"
+                android:text="At Doctor's House" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnNext_"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/bottomStage"
+            android:layout_marginTop="24dp"
+            android:background="#c4c4c4"
+            android:text="Next"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:onClick="onSelecting_1"/>
+    </RelativeLayout>
+</layout>
