@@ -10,6 +10,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.ActionBar
@@ -27,8 +28,9 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
+import mede.com.medesharevietnam.controller.DoctorMatchActivity
 import mede.com.medesharevietnam.databinding.BottomDoctorInfomationBinding
-import mede.com.medesharevietnam.domain.Doctor
+import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.medical.MediDisease
 import mede.com.medesharevietnam.domain.medical.MediLocation
 
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mapFragment: GoogleMapFragment
     lateinit var bottomBinding: BottomDoctorInfomationBinding
+    lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     var locationClient: FusedLocationProviderClient? = null
     var selectedDisease: MediDisease? = null
 
@@ -114,14 +117,16 @@ class MainActivity : AppCompatActivity() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as GoogleMapFragment
         mapFragment.setOnMapReadied{
             bottomBinding = DataBindingUtil.bind(bottomSheet)
+            bottomSheetBehavior = BottomSheetBehavior.from(bottomBinding.root)
 
             var latLng = LatLng(21.083026, 105.780140)
             markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
 
             checkLocationPermission(true)
+
+            initView()
         }
         mapFragment.setOnMarkerClicked { marker ->
-            var bottomSheetBehavior = BottomSheetBehavior.from(bottomBinding.root)
             var isDoctor = false
 
             if (marker != null && marker.tag != null) {
@@ -131,10 +136,10 @@ class MainActivity : AppCompatActivity() {
                     if(mediLocation.type == "1"){
                         isDoctor = true
                         var doctor = Doctor()
-                        doctor.key = "1"
+                        doctor.key = mediLocation.key
                         doctor.name = mediLocation.name
                         doctor.rank = "4.2"
-                        if(mediLocation.mediSubject != null) doctor.subjectName = mediLocation.mediSubject!!.name
+                        doctor.subjectName = mediLocation.getMediSubject().name
 
                         bottomBinding.doctor = doctor
                     }
@@ -144,7 +149,17 @@ class MainActivity : AppCompatActivity() {
             if(isDoctor) bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
             else bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
         }
+        mapFragment.setOnMapClicked {
+            var bottomSheetBehavior = BottomSheetBehavior.from(bottomBinding.root)
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
         mapFragment.getMapAsync(mapFragment)
+    }
+
+    private fun initView(){
+        tgUseLocation.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
+        tgUseFavorite.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
+        tgUseHospital.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
     }
 
     private fun getTempMediDisease():ArrayList<MediDisease>{
@@ -213,6 +228,17 @@ class MainActivity : AppCompatActivity() {
         actionBar.setCustomView(mCustomView, params)
     }
 
+    private fun onLocationChange(){
+        var markers = ArrayList<Marker>()
+
+        if(tgUseLocation.isChecked && markerLocation != null) markers.add(markerLocation!!)
+        //if(btnUseFavorite.isChecked)
+        if(tgUseHospital.isChecked) markers.add(markerHospital)
+
+        if(markers.size == 1) mapFragment.moveToCamera(markers.get(0), 13F)
+        else if(markers.size > 1) mapFragment.zoomToFit(markers, 10)
+    }
+
     private fun clearMarker(){
         for(marker in markers){
             marker.remove()
@@ -231,7 +257,7 @@ class MainActivity : AppCompatActivity() {
 
     fun onSearch(v: View){
         val intent = Intent(this, SearchActivity::class.java)
-        startActivityForResult(intent,Const.REQ_DISEASE_AUTOCOMPLETE)
+        startActivityForResult(intent, Const.REQ_DISEASE_AUTOCOMPLETE)
         overridePendingTransition(0, 0)
     }
 
@@ -272,6 +298,25 @@ class MainActivity : AppCompatActivity() {
             }
 
             mapFragment.zoomToFit(markers, 10)
+        }
+    }
+
+    private fun useDoctorMatch():Boolean{
+        return (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED && bottomBinding.doctor != null)
+    }
+
+    fun onCall(v: View) {
+        if (useDoctorMatch()) {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + bottomBinding.doctor!!.phoneNumber))
+            startActivity(intent)
+        }
+    }
+
+    fun onMatching(v: View){
+        if(useDoctorMatch()){
+            val intent = Intent(this, DoctorMatchActivity::class.java)
+            intent.putExtra(Const.EXT_DOCTOR_KEY, bottomBinding.doctor!!.key)
+            startActivityForResult(intent, Const.REQ_DOCTOR_MATCH)
         }
     }
 

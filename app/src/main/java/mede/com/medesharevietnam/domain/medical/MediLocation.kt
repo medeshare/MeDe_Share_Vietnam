@@ -11,8 +11,7 @@ class MediLocation{
     var lng:Double = 0.0
     var name:String = ""
     var description:String = ""
-    var mediSubject: MediSubject? = null
-        private set(value) {field = value}
+    var tag:Any? = null
 
     constructor(){}
 
@@ -26,21 +25,23 @@ class MediLocation{
         this.description = description
     }
 
-    init {
-        if(mediKey.equals("m01")){
-            mediSubject = MediSubject(mediKey, "Orthopaedics")
+    fun getMediSubject():MediSubject {
+        if(mediKey=="m01"){
+            return MediSubject(mediKey, "Orthopaedics")
         }
-        else if(mediKey.equals("m02")){
-            mediSubject = MediSubject(mediKey, "general practice")
+        else if(mediKey=="m02"){
+            return MediSubject(mediKey, "general practice")
         }
-        else if(mediKey.equals("m03")){
-            mediSubject = MediSubject(mediKey, "Ear nose and throat")
+        else if(mediKey=="m03"){
+            return MediSubject(mediKey, "Ear nose and throat")
         }
-        else if(mediKey.equals("m04")){
-            mediSubject = MediSubject(mediKey, "Opthalmology")
+        else if(mediKey=="m04"){
+            return MediSubject(mediKey, "Opthalmology")
         }
-        else if(mediKey.equals("m05")){
-            mediSubject = MediSubject(mediKey, "Dental surgery")
+        else if(mediKey=="m05"){
+            return MediSubject(mediKey, "Dental surgery")
         }
+
+        return MediSubject()
     }
 }
