@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MeDe_.iml" filepath="$PROJECT_DIR$/MeDe_.iml" />
+      <module fileurl="file://G:\Project\MeDe_Share_Vietnam\MeDe_.iml" filepath="G:\Project\MeDe_Share_Vietnam\MeDe_.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MeDe_Share_Vietnam.iml" filepath="$PROJECT_DIR$/MeDe_Share_Vietnam.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
