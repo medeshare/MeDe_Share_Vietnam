@@ -23,6 +23,7 @@
         android:layout_marginRight="13dp"
         android:layout_marginTop="9dp"
         android:background="@android:color/transparent"
+        android:onClick="onCancel"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_30_cancel_02" />

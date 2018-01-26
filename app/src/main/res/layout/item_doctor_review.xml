@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!--import type="android.view.View" /-->
+        <variable
+            name="doctor"
+            type="mede.com.medesharevietnam.domain.match.DoctorReview" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:circle_image_url="@{doctor.userImageUrl}" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:text="@{doctor.userName}"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvLastDt"
+            app:layout_constraintStart_toEndOf="@+id/ivProfile"
+            app:layout_constraintTop_toTopOf="@+id/ivProfile" />
+
+        <TextView
+            android:id="@+id/tvLastDt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="4dp"
+            android:text="@{doctor.rateTime}"
+            android:textColor="#9b9b9b"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivProfile" />
+
+        <ImageView
+            android:id="@+id/ivRank"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRank"
+            app:layout_constraintStart_toEndOf="@+id/ivProfile"
+            app:layout_constraintTop_toTopOf="@+id/tvRank"
+            app:srcCompat="@drawable/ic_13_rank_full" />
+
+        <TextView
+            android:id="@+id/tvRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginStart="5dp"
+            android:text="@{doctor.rate}"
+            android:textColor="#515151"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+            app:layout_constraintStart_toEndOf="@+id/ivRank" />
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="9dp"
+            android:text="@{doctor.review}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
