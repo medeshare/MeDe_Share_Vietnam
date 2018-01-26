@@ -41,7 +41,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                app:image_url="@{doctor.imageUrl}" />
+                app:circle_image_url="@{doctor.imageUrl}" />
 
             <ImageButton
                 android:id="@+id/btnCall"

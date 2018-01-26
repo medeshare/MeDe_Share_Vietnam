@@ -53,7 +53,7 @@ class RecyclerAdapter(val context: Context, val itemClick : (SearchData)->Unit) 
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_list_search, parent, false)
-        return Holder(view, itemClick)
+        return Holder(view)
     }
 
 
@@ -62,19 +62,19 @@ class RecyclerAdapter(val context: Context, val itemClick : (SearchData)->Unit) 
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(searchData[searchData.size-position-1], context)
+        holder.bind(searchData[searchData.size-position-1])
         holder.imgDelete.setOnClickListener{
             removeDataAndRefresh(searchData[searchData.size-position-1])
         }
     }
 
 
-    inner class Holder(itemView: View, val itemClick: (SearchData) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtDisease = itemView.findViewById<TextView>(R.id.txtDisease)
         val txtDate = itemView.findViewById<TextView>(R.id.txtDate)
         val imgDelete = itemView.findViewById<ImageView>(R.id.imgDelete)
 
-        fun bind(data : SearchData, context : Context){
+        fun bind(data : SearchData){
             txtDisease?.text = data.disease
             txtDate?.text = data.date
             txtDisease.setOnClickListener{itemClick(data)}
