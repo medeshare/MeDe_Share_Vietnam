@@ -1,11 +1,13 @@
 package mede.com.medesharevietnam.controller
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_doctor_match.*
+import mede.com.medesharevietnam.MatchingActivity
 import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.common.DataBinder
@@ -14,7 +16,6 @@ import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.match.DoctorAbout
 import mede.com.medesharevietnam.domain.match.DoctorReview
 import mede.com.medesharevietnam.domain.match.DoctorReviews
-
 
 class DoctorMatchActivity : AppCompatActivity() {
     var doctorKey:String = ""
@@ -113,5 +114,10 @@ class DoctorMatchActivity : AppCompatActivity() {
     fun onCancel(v:View){
         setResult(Activity.RESULT_CANCELED)
         finish()
+    }
+
+    fun onMatchingSelect(v: View){
+        val intentMatching = Intent(this, MatchingActivity::class.java)
+        startActivity(intentMatching)
     }
 }

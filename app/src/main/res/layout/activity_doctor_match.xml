@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mede.com.medesharevietnam.controller.MatchDoctorActivity">
+    tools:context="mede.com.medesharevietnam.controller.DoctorMatchActivity">
 
     <ImageView
         android:id="@+id/ivProfile"
@@ -112,6 +112,7 @@
         android:text="Matching"
         android:textColor="#ffffff"
         android:textSize="18sp"
+        android:onClick="onMatchingSelect"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
