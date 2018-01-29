@@ -93,16 +93,6 @@ class MatchingActivity : AppCompatActivity() {
         else markerLocation!!.position = latLng
     }
 
-    fun onSelecting(v: View){
-        var bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetMatching)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    fun onSelectingLocation(v: View){
-        var bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetMatchingTime)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
     fun init() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map_) as GoogleMapFragment
         mapFragment.setOnMapReadied{
@@ -138,6 +128,7 @@ class MatchingActivity : AppCompatActivity() {
     fun onDriving(v: View){
         drawDriving()
     }
+
     fun drawDriving(){
         var start = if(useCurrentLocation) currentLocation else customLocation
 
@@ -159,8 +150,6 @@ class MatchingActivity : AppCompatActivity() {
         drawWalking()
     }
     fun drawWalking(){
-        btnNext.setBackgroundColor(Color.parseColor("#1990ff"))
-
         var start = if(useCurrentLocation) currentLocation else customLocation
 
         mapFragment?.getDirection(
@@ -231,5 +220,25 @@ class MatchingActivity : AppCompatActivity() {
 
         mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
     }
+
+    fun onSelecting(v: View){
+        var bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetMatching)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    fun onSelectingLocation(v: View){
+        var bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetMatchingTime)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    fun onSlectingTime(v: View){
+
+    }
+
+//    customized dialog from matching_confirm layout
+//    fun onMatchingConfirm(v: View){
+//        val alert = ViewDialogAdapter()
+//        alert.showDialog(this, "Appointment Confirm!")
+//    }
 
 }
