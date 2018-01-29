@@ -25,23 +25,7 @@ class MediLocation{
         this.description = description
     }
 
-    fun getMediSubject():MediSubject {
-        if(mediKey=="m01"){
-            return MediSubject(mediKey, "Orthopaedics")
-        }
-        else if(mediKey=="m02"){
-            return MediSubject(mediKey, "general practice")
-        }
-        else if(mediKey=="m03"){
-            return MediSubject(mediKey, "Ear nose and throat")
-        }
-        else if(mediKey=="m04"){
-            return MediSubject(mediKey, "Opthalmology")
-        }
-        else if(mediKey=="m05"){
-            return MediSubject(mediKey, "Dental surgery")
-        }
-
-        return MediSubject()
+    fun getMediSubject():MediSubject? {
+        return MedicalManager.getSubject(mediKey)
     }
 }

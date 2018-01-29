@@ -1,14 +1,12 @@
 package mede.com.medesharevietnam
 
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.GoogleMapFragment
-import a.mnisdh.com.kotlingooglemap.googleMapAPIs.domain.directions.Routes
 import a.mnisdh.com.kotlingooglemap.util.PermissionUtil
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
@@ -16,15 +14,11 @@ import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import com.google.android.gms.location.*
-import com.google.android.gms.location.places.ui.PlaceAutocomplete
-import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
@@ -139,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                         doctor.key = mediLocation.key
                         doctor.name = mediLocation.name
                         doctor.rank = "4.2"
-                        doctor.subjectName = mediLocation.getMediSubject().name
+                        doctor.subjectName = mediLocation.getMediSubject()!!.name
 
                         bottomBinding.doctor = doctor
                     }
@@ -160,53 +154,6 @@ class MainActivity : AppCompatActivity() {
         tgUseLocation.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
         tgUseFavorite.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
         tgUseHospital.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
-    }
-
-    private fun getTempMediDisease():ArrayList<MediDisease>{
-        var diseases = ArrayList<MediDisease>();
-        diseases.add(MediDisease("s01", "m01", "dislocation", ""))
-        diseases.add(MediDisease("s02", "m01", "fracture", ""))
-        diseases.add(MediDisease("s03", "m01", "nerve pain (sharp pain)", ""))
-        diseases.add(MediDisease("s04", "m01", "musculoskeletal pain", ""))
-        diseases.add(MediDisease("s05", "m01", "Back pain", ""))
-        diseases.add(MediDisease("s06", "m01", "lie back", ""))
-        diseases.add(MediDisease("s07", "m01", "shoulder pain", ""))
-        diseases.add(MediDisease("s08", "m01", "neck pain", ""))
-        diseases.add(MediDisease("s09", "m01", "Movement ", ""))
-        diseases.add(MediDisease("s10", "m02", "Stomach pain", ""))
-        diseases.add(MediDisease("s11", "m02", "chest pain", ""))
-        diseases.add(MediDisease("s12", "m02", "Breathing difficulty", ""))
-        diseases.add(MediDisease("s13", "m02", "fever/temperature", ""))
-        diseases.add(MediDisease("s14", "m02", "cold", ""))
-        diseases.add(MediDisease("s15", "m02", "vomit", ""))
-        diseases.add(MediDisease("s16", "m02", "heart", ""))
-        diseases.add(MediDisease("s17", "m02", "skin check", ""))
-        diseases.add(MediDisease("s18", "m02", "diabetes", ""))
-        diseases.add(MediDisease("s19", "m02", "high blood pressure", ""))
-        diseases.add(MediDisease("s20", "m02", "travel medicine", ""))
-        diseases.add(MediDisease("s21", "m02", "Immunisation", ""))
-        diseases.add(MediDisease("s22", "m02", "sexual health", ""))
-        diseases.add(MediDisease("s23", "m02", "Mental health", ""))
-        diseases.add(MediDisease("s24", "m02", "flu vaccination", ""))
-        diseases.add(MediDisease("s25", "m03", "Sore throat", ""))
-        diseases.add(MediDisease("s26", "m03", "ear pain", ""))
-        diseases.add(MediDisease("s27", "m03", "hearing loss", ""))
-        diseases.add(MediDisease("s28", "m03", "cough", ""))
-        diseases.add(MediDisease("s29", "m03", "vocal change", ""))
-        diseases.add(MediDisease("s30", "m03", "blocked nose", ""))
-        diseases.add(MediDisease("s31", "m03", "nose bleed (epistaxis)", ""))
-        diseases.add(MediDisease("s32", "m04", "Vision changes", ""))
-        diseases.add(MediDisease("s33", "m04", "eye pain", ""))
-        diseases.add(MediDisease("s34", "m04", "eye discharge", ""))
-        diseases.add(MediDisease("s35", "m04", "double vision (diplopia)", ""))
-        diseases.add(MediDisease("s36", "m04", "eye pressure", ""))
-        diseases.add(MediDisease("s37", "m05", "toothache", ""))
-        diseases.add(MediDisease("s38", "m05", "gum bleeding", ""))
-        diseases.add(MediDisease("s39", "m05", "tooth fracture", ""))
-        diseases.add(MediDisease("s40", "m05", "Dental care", ""))
-        diseases.add(MediDisease("s41", "m05", "teeth whitening", ""))
-
-        return diseases
     }
 
     private fun setCustomActionbar() {
@@ -264,7 +211,7 @@ class MainActivity : AppCompatActivity() {
     fun search(selectedDisease: MediDisease?){
         clearMarker()
 
-        var locations = selectedDisease!!.getMediSubject().getLocations()
+        var locations = selectedDisease!!.getMediSubject()!!.getLocations()
 
         for(location in locations){
             var latlng = LatLng(location.lat, location.lng)
@@ -284,7 +231,7 @@ class MainActivity : AppCompatActivity() {
         if(selectedDisease != null){
             clearMarker()
 
-            var locations = selectedDisease!!.getMediSubject().getLocations()
+            var locations = selectedDisease!!.getMediSubject()!!.getLocations()
 
             for(location in locations){
                 var latlng = LatLng(location.lat, location.lng)
@@ -320,71 +267,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onDriving(v: View){
-        mapFragment?.getDirection(
-                LatLng(21.004060, 105.840235),
-                LatLng(21.027544, 105.845984),
-                "driving",
-                {direction ->
-                    Log.d("driving count:",direction.routes.count().toString())
-
-                    if (direction.routes.count() > 0) setDirection(direction.routes)
-                    else Log.d("onDriving", "is not found")
-                })
-    }
-
-    fun onWalking(v: View){
-        mapFragment?.getDirection(
-                LatLng(21.004060, 105.840235),
-                LatLng(21.027544, 105.845984),
-                "walking",
-                {direction ->
-                    Log.d("walking count:",direction.routes.count().toString())
-
-                    if (direction.routes.count() > 0) setDirection(direction.routes)
-                    else Log.d("onWalking", "is not found")
-                })
-    }
-
-    fun onSearching(v: View){
-        val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this)
-        startActivityForResult(intent, Const.REQ_PLACE_AUTOCOMPLATE)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == Const.REQ_PLACE_AUTOCOMPLATE){
-            if (resultCode == RESULT_OK) {
-                val place = PlacePicker.getPlace(data, this)
-                //tvSearch.text = place.name
-                
-                mapFragment.addMarker(place.latLng, "")
-            }
-        }else if(requestCode == Const.REQ_DISEASE_AUTOCOMPLETE){
+        if(requestCode == Const.REQ_DISEASE_AUTOCOMPLETE){
             if(resultCode == RESULT_OK) {
                 selectedDisease = data?.getSerializableExtra("Disease") as MediDisease
                 search(selectedDisease)
-            }
-        }
-    }
-
-    var directionLines: ArrayList<Polyline> = ArrayList()
-    private fun initDirection(){
-        for(direction in directionLines) direction.remove()
-
-        directionLines.clear()
-    }
-    private fun setDirection(routes: ArrayList<Routes>) {
-        initDirection()
-
-        var isFirst = true
-        var color = Color.BLUE
-        for (route in routes) {
-            mapFragment.zoomToFit(route.bounds.getBounds())
-            directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 15F))
-
-            if(isFirst) {
-                color = Color.DKGRAY
-                isFirst = false
             }
         }
     }

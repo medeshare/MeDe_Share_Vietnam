@@ -16,6 +16,7 @@ import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.match.DoctorAbout
 import mede.com.medesharevietnam.domain.match.DoctorReview
 import mede.com.medesharevietnam.domain.match.DoctorReviews
+import mede.com.medesharevietnam.domain.medical.MedicalManager
 
 class DoctorMatchActivity : AppCompatActivity() {
     var doctorKey:String = ""
@@ -51,9 +52,11 @@ class DoctorMatchActivity : AppCompatActivity() {
         loadReviews()
     }
     private fun loadDoctor(){
+        var mediLoc = MedicalManager.getLocation(doctorKey)
+
         var doctor = Doctor()
-        doctor.name = "Dr. James Riyadi"
-        doctor.subjectName = "Internal medicine"
+        doctor.name = mediLoc!!.name
+        doctor.subjectName = mediLoc!!.getMediSubject()!!.name
         doctor.imageUrl = "http://cdn.ajoumc.or.kr/Upload/MedicalCenter/Doctor/Profile/201303/104382.jpg"
 
         tvName.text = doctor.name
@@ -61,12 +64,14 @@ class DoctorMatchActivity : AppCompatActivity() {
         DataBinder.setCircleImageUrl(ivProfile, doctor.imageUrl)
     }
     private fun loadAbout(){
+        var mediLoc = MedicalManager.getLocation(doctorKey)
+
         var doctorAbout = DoctorAbout()
         doctorAbout.hours = "319"
         doctorAbout.patients = "180"
         doctorAbout.rate = "4.3"
         doctorAbout.introduce = "Dr. James Riyadi is surrently the Director and H.O.D of the Department of Mediciene, Artemis Hospital, where he’s been working for the past 8 years."
-        doctorAbout.mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=800x500&key=AIzaSyA3VhwLoySupQAQxdS4fwBle7eE_UEf-9U"
+        doctorAbout.mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + mediLoc!!.lat + "," + mediLoc!!.lng + "&zoom=14&size=800x500&key=AIzaSyA3VhwLoySupQAQxdS4fwBle7eE_UEf-9U"
         doctorAbout.price = "\$10 / Case"
 
         pagerAdapter.setAbout(doctorAbout)
@@ -118,6 +123,7 @@ class DoctorMatchActivity : AppCompatActivity() {
 
     fun onMatchingSelect(v: View){
         val intentMatching = Intent(this, MatchingActivity::class.java)
+        intentMatching.putExtra(Const.EXT_DOCTOR_KEY, doctorKey)
         startActivity(intentMatching)
     }
 }
