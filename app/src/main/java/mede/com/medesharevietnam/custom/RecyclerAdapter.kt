@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import mede.com.medesharevietnam.R
+import mede.com.medesharevietnam.common.SharedPreferenceManager
 import mede.com.medesharevietnam.domain.SearchData
 
 /**
@@ -16,23 +17,26 @@ import mede.com.medesharevietnam.domain.SearchData
 class RecyclerAdapter(val context: Context, val itemClick : (SearchData)->Unit) : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
 
     var save = true
-    val searchData = ArrayList<SearchData>()
+    val searchData = SharedPreferenceManager.searchDataList
 
     fun addDataAndRefresh(data : SearchData){
         if(save==true){
             searchData.add(data)
             notifyDataSetChanged()
+            SharedPreferenceManager.searchDataList = searchData
         }
     }
 
     fun removeDataAndRefresh(data : SearchData){
         if(searchData.contains(data)) searchData.remove(data)
         notifyDataSetChanged()
+        SharedPreferenceManager.searchDataList = searchData
     }
 
     fun removeAllDataAndRefresh(){
         searchData.clear()
         notifyDataSetChanged()
+        SharedPreferenceManager.searchDataList = searchData
     }
 
     fun dontSave(){
@@ -58,9 +62,9 @@ class RecyclerAdapter(val context: Context, val itemClick : (SearchData)->Unit) 
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(searchData[position])
+        holder.bind(searchData[searchData.size-position-1])
         holder.imgDelete.setOnClickListener{
-            removeDataAndRefresh(searchData[position])
+            removeDataAndRefresh(searchData[searchData.size-position-1])
         }
     }
 

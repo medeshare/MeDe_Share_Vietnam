@@ -1,7 +1,6 @@
 package mede.com.medesharevietnam
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -11,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.activity_search.*
 import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
 import mede.com.medesharevietnam.custom.RecyclerAdapter
@@ -21,15 +19,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class SearchActivity : AppCompatActivity() {
-    var selectedDisease: MediDisease? = null
+    private var selectedDisease: MediDisease? = null
+    lateinit private var recyclerAdapter : RecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         setCustomActionbar()
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
         initView()
     }
 
@@ -58,12 +56,10 @@ class SearchActivity : AppCompatActivity() {
         tvMediSearch.setAdapter(adapter)
 
 
-        var recyclerAdapter = RecyclerAdapter(this){ data -> tvMediSearch.setText(data.disease)}
+        recyclerAdapter = RecyclerAdapter(this){ data -> tvMediSearch.setText(data.disease)}
         recyclerView.adapter = recyclerAdapter
 
         val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.reverseLayout= true
-        linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
 
         tvMediSearch.setOnItemClickListener {
@@ -74,6 +70,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         checkSize(recyclerAdapter.getItemSize())
+
     }
 
     fun onMediSearch(v: View){
@@ -84,6 +81,20 @@ class SearchActivity : AppCompatActivity() {
             finish()
             overridePendingTransition(0, 0)
         }
+    }
+
+    fun dontSave(v: View){
+        if(recyclerAdapter.save==true){
+            recyclerAdapter.save=false
+            txtDontSave.text = "Save Searches"
+        }else{
+            recyclerAdapter.save=true
+            txtDontSave.text = "Don't Save Searches"
+        }
+    }
+
+    fun deleteAll(v: View){
+        recyclerAdapter.removeAllDataAndRefresh()
     }
 
     private fun getTempMediDisease():ArrayList<MediDisease>{
