@@ -28,6 +28,7 @@
             android:background="#c4c4c4"
             android:text="Next"
             android:textColor="#ffffff"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:onClick="onSelectingTime"/>
     </RelativeLayout>
 </layout>
