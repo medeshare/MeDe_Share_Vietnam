@@ -58,6 +58,27 @@
                     android:background="@android:color/transparent"
                     android:onClick="onMediSearch"
                     app:srcCompat="@drawable/ic_30_search" />
+
+                <ImageView
+                    android:id="@+id/imgClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="48dp"
+                    android:onClick="clearText"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_30_next_nor" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginRight="42dp"
+                    android:text="|"
+                    android:textColor="#e8e8e8"
+                    android:textSize="24sp" />
             </FrameLayout>
 
         </LinearLayout>

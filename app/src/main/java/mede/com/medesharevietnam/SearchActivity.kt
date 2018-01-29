@@ -6,10 +6,12 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
+import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.activity_search.*
 import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
 import mede.com.medesharevietnam.custom.RecyclerAdapter
@@ -63,15 +65,52 @@ class SearchActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
 
+        tvMediSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if(s.isNullOrEmpty()){
+                    imgClear.visibility=INVISIBLE
+                }else{
+                    imgClear.visibility = VISIBLE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                imgVisible(s)
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                imgVisible(s)
+            }
+        })
         tvMediSearch.setOnItemClickListener {
             adapterView, view, i,
             l -> selectedDisease = adapter.getItem(i)
             recyclerAdapter.addDataAndRefresh(SearchData(adapter.getItem(i).name, getDate()))
             checkSize(recyclerAdapter.getItemSize())
         }
+        tvMediSearch.setOnEditorActionListener{ v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                onMediSearch(v)
+                true
+            } else {
+                false
+            }
+        }
 
         checkSize(recyclerAdapter.getItemSize())
 
+    }
+
+    fun imgVisible(s: CharSequence?){
+        if(s.isNullOrEmpty()){
+            imgClear.visibility = INVISIBLE
+        }else{
+            imgClear.visibility = VISIBLE
+        }
+    }
+
+    fun clearText(v:View){
+        tvMediSearch.text=null
     }
 
     fun onMediSearch(v: View){
@@ -125,4 +164,6 @@ class SearchActivity : AppCompatActivity() {
             cardView_Search.visibility = VISIBLE
         }
     }
+
+
 }
