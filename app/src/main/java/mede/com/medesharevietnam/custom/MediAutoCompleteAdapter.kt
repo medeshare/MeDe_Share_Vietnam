@@ -95,7 +95,7 @@ class MediAutoCompleteAdapter(internal var context: Context?, internal var resou
             val tvSubject = view.findViewById(R.id.tvSubjectName) as TextView
             val tvDisease = view.findViewById(R.id.tvDiseaseName) as TextView
 
-            tvSubject.text = disease.getMediSubject().name
+            tvSubject.text = disease.getMediSubject()!!.name
             if(!addedSubjects.contains(disease.mediKey)){
                 addedSubjects.add(disease.mediKey)
                 disease.tag = true

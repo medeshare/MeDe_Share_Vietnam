@@ -90,8 +90,8 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
             if(lng <= minLng) minLng = lng
         }
 
-        //zoomToFit(LatLngBounds(LatLng(minLat - 0.0005, minLng - 0.0005), LatLng(maxLat + 0.0005, maxLng + 0.0005)))
-        zoomToFit(LatLngBounds(LatLng(minLat, minLng), LatLng(maxLat, maxLng)), zoomLevel)
+        zoomToFit(LatLngBounds(LatLng(minLat - 0.0005, minLng - 0.0005), LatLng(maxLat + 0.0005, maxLng + 0.0005)))
+        //zoomToFit(LatLngBounds(LatLng(minLat, minLng), LatLng(maxLat, maxLng)), zoomLevel)
     }
 
     fun drawPolyline(latLngs: List<LatLng>, color: Int, width: Float): Polyline{
