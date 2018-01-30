@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_matching.*
 import kotlinx.android.synthetic.main.bottom_matching_select.*
 import mede.com.medesharevietnam.common.Const
+import mede.com.medesharevietnam.controller.ConfirmActivity
 import mede.com.medesharevietnam.domain.medical.MediDisease
 import mede.com.medesharevietnam.domain.medical.MedicalManager
 
@@ -298,7 +299,9 @@ class MatchingActivity : AppCompatActivity() {
     }
 
     fun onConfirm(v: View){
-
+        val intentMatching = Intent(this, ConfirmActivity::class.java)
+        intentMatching.putExtra(Const.EXT_DOCTOR_KEY, doctorKey)
+        startActivity(intentMatching)
     }
 
 //    customized dialog from matching_confirm layout

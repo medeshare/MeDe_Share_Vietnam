@@ -27,7 +27,10 @@ class DoctorMatchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_doctor_match)
 
         doctorKey = intent.getStringExtra(Const.EXT_DOCTOR_KEY)
-        if(doctorKey == null && doctorKey == "") finishActivity(Activity.RESULT_CANCELED)
+        if(doctorKey == null && doctorKey == "") {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
 
         init()
         initView()
