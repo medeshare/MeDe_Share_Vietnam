@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_matching.*
+import kotlinx.android.synthetic.main.bottom_matching_select.*
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.domain.medical.MediDisease
 import mede.com.medesharevietnam.domain.medical.MedicalManager
@@ -65,6 +66,8 @@ class MatchingActivity : AppCompatActivity() {
                 if (location != null) {
                     updateMarkerLocation(location.latitude, location.longitude)
                     currentLocation = LatLng(location.latitude, location.longitude)
+
+                    setEstimTime()
                     drawDriving()
                 }
             }
@@ -104,7 +107,7 @@ class MatchingActivity : AppCompatActivity() {
     }
 
     fun init() {
-        mapFragment = supportFragmentManager.findFragmentById(R.id.map_) as GoogleMapFragment
+        mapFragment = supportFragmentManager.findFragmentById(R.id.map) as GoogleMapFragment
         mapFragment.setOnMapReadied{
             var latLng = LatLng(21.083026, 105.780140)
             markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
@@ -112,8 +115,42 @@ class MatchingActivity : AppCompatActivity() {
             mapFragment.addMarker(doctorLocation, "doctor",  R.drawable.ic_48_pin_doctor)
 
             initLocationClient()
+
+            initView()
         }
         mapFragment.getMapAsync(mapFragment)
+    }
+
+    private fun initView(){
+        tgUseLocation.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
+        tgUseFavorite.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
+        tgUseHospital.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
+
+        btnMyHouse.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                btnDoctorHouse.isChecked = false
+                btnNext_.isEnabled = true
+            }
+            else btnNext_.isEnabled = false
+        }
+        btnDoctorHouse.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                btnMyHouse.isChecked = false
+                btnNext_.isEnabled = true
+            }
+            else btnNext_.isEnabled = false
+        }
+    }
+
+    private fun onLocationChange(){
+        var markers = ArrayList<Marker>()
+
+        if(tgUseLocation.isChecked && markerLocation != null) markers.add(markerLocation!!)
+        //if(btnUseFavorite.isChecked)
+        if(tgUseHospital.isChecked) markers.add(markerHospital)
+
+        if(markers.size == 1) mapFragment.moveToCamera(markers.get(0), 13F)
+        else if(markers.size > 1) mapFragment.zoomToFit(markers, 10)
     }
 
     private fun setCustomActionbar() {
@@ -135,6 +172,36 @@ class MatchingActivity : AppCompatActivity() {
         actionBar.setCustomView(mCustomView, params)
     }
 
+    private fun setEstimTime(){
+        var start = if(useCurrentLocation) currentLocation else customLocation
+
+        mapFragment?.getDirection(
+                start,
+                doctorLocation,
+                "driving",
+                {direction ->
+                    Log.d("driving count:",direction.routes.count().toString())
+
+                    if (direction.routes.count() > 0) {
+                        tvEstimDrive.text = direction.routes[0].legs[0].duration.text
+                    }
+                    else tvEstimDrive.text = "-"
+                })
+
+        mapFragment?.getDirection(
+                start,
+                doctorLocation,
+                "walking",
+                {direction ->
+                    Log.d("driving count:",direction.routes.count().toString())
+
+                    if (direction.routes.count() > 0) {
+                        tvEstimWalk.text = direction.routes[0].legs[0].duration.text
+                    }
+                    else tvEstimWalk.text = "-"
+                })
+    }
+
     fun onDriving(v: View){
         drawDriving()
     }
@@ -149,18 +216,14 @@ class MatchingActivity : AppCompatActivity() {
                     Log.d("driving count:",direction.routes.count().toString())
 
                     if (direction.routes.count() > 0) setDirection(direction.routes)
-                    else Log.d("onDriving", "is not found")
+                    else setDirection(null)
                 })
-
-        btnNext.setBackgroundColor(Color.parseColor("#1990ff"))
     }
 
     fun onWalking(v: View){
         drawWalking()
     }
     fun drawWalking(){
-        btnNext.setBackgroundColor(Color.parseColor("#1990ff"))
-
         var start = if(useCurrentLocation) currentLocation else customLocation
 
         mapFragment?.getDirection(
@@ -171,15 +234,17 @@ class MatchingActivity : AppCompatActivity() {
                     Log.d("walking count:",direction.routes.count().toString())
 
                     if (direction.routes.count() > 0) setDirection(direction.routes)
-                    else Log.d("onWalking", "is not found")
+                    else setDirection(null)
                 })
-
-        btnNext.setBackgroundColor(Color.parseColor("#1990ff"))
     }
 
     fun onSearching(v: View){
         val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this)
         startActivityForResult(intent, Const.REQ_PLACE_AUTOCOMPLATE)
+    }
+
+    fun onConfirm(v: View){
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -190,6 +255,7 @@ class MatchingActivity : AppCompatActivity() {
                 tvCurrentSearch.setText(place.name.toString())
                 useCurrentLocation = false
 
+                setEstimTime()
                 drawDriving()
             }
         }
@@ -201,35 +267,37 @@ class MatchingActivity : AppCompatActivity() {
 
         directionLines.clear()
     }
-    private fun setDirection(routes: ArrayList<Routes>) {
+    private fun setDirection(routes: ArrayList<Routes>?) {
         initDirection()
 
-        var isFirst = true
-        var color = Color.BLUE
+        if(routes != null) {
+            var isFirst = true
+            var color = Color.BLUE
 
-        var minLat = 99999999.9
-        var maxLat = -99999999.9
-        var minLng = 99999999.9
-        var maxLng = -99999999.9
+            var minLat = 99999999.9
+            var maxLat = -99999999.9
+            var minLng = 99999999.9
+            var maxLng = -99999999.9
 
-        for (route in routes) {
-            var southwest = route.bounds.getBounds().southwest
-            var northeast = route.bounds.getBounds().northeast
+            for (route in routes) {
+                var southwest = route.bounds.getBounds().southwest
+                var northeast = route.bounds.getBounds().northeast
 
-            minLat = if(minLat > southwest.latitude) southwest.latitude else minLat
-            minLng = if(minLng > southwest.longitude) southwest.longitude else minLng
-            maxLat = if(maxLat < northeast.latitude) northeast.latitude else maxLat
-            maxLng = if(maxLng < northeast.longitude) northeast.longitude else maxLng
+                minLat = if (minLat > southwest.latitude) southwest.latitude else minLat
+                minLng = if (minLng > southwest.longitude) southwest.longitude else minLng
+                maxLat = if (maxLat < northeast.latitude) northeast.latitude else maxLat
+                maxLng = if (maxLng < northeast.longitude) northeast.longitude else maxLng
 
-            directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 15F))
+                directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 15F))
 
-            if(isFirst) {
-                color = Color.DKGRAY
-                isFirst = false
+                if (isFirst) {
+                    color = Color.DKGRAY
+                    isFirst = false
+                }
             }
-        }
 
-        mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
+            mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
+        }
     }
 
 }
