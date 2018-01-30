@@ -48,10 +48,10 @@ class MatchingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_matching)
 
         doctorKey = intent.getStringExtra(Const.EXT_DOCTOR_KEY)
-        if(doctorKey == null && doctorKey == "") finishActivity(Activity.RESULT_CANCELED)
+        if(doctorKey == "") finishActivity(Activity.RESULT_CANCELED)
 
         var mediLoc = MedicalManager.getLocation(doctorKey)
-        doctorLocation = LatLng(mediLoc!!.lat, mediLoc!!.lng)
+        doctorLocation = LatLng(mediLoc!!.lat, mediLoc.lng)
 
         setCustomActionbar()
         init()
@@ -112,18 +112,18 @@ class MatchingActivity : AppCompatActivity() {
     }
 
     private fun initView(){
-        tgUseLocation.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
-        tgUseFavorite.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
-        tgUseHospital.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
+        tgUseLocation.setOnCheckedChangeListener { _, isChecked -> if(isChecked) onLocationChange() }
+        tgUseFavorite.setOnCheckedChangeListener { _, isChecked -> if(isChecked) onLocationChange() }
+        tgUseHospital.setOnCheckedChangeListener { _, isChecked -> if(isChecked) onLocationChange() }
 
-        btnMyHouse.setOnCheckedChangeListener { buttonView, isChecked ->
+        btnMyHouse.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) {
                 btnDoctorHouse.isChecked = false
                 btnNext_.isEnabled = true
             }
             else btnNext_.isEnabled = false
         }
-        btnDoctorHouse.setOnCheckedChangeListener { buttonView, isChecked ->
+        btnDoctorHouse.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) {
                 btnMyHouse.isChecked = false
                 btnNext_.isEnabled = true
@@ -165,7 +165,7 @@ class MatchingActivity : AppCompatActivity() {
     private fun setEstimTime(){
         var start = if(useCurrentLocation) currentLocation else customLocation
 
-        mapFragment?.getDirection(
+        mapFragment.getDirection(
                 start,
                 doctorLocation,
                 "driving",
@@ -178,7 +178,7 @@ class MatchingActivity : AppCompatActivity() {
                     else tvEstimDrive.text = "-"
                 })
 
-        mapFragment?.getDirection(
+        mapFragment.getDirection(
                 start,
                 doctorLocation,
                 "walking",
@@ -199,7 +199,7 @@ class MatchingActivity : AppCompatActivity() {
     fun drawDriving(){
         var start = if(useCurrentLocation) currentLocation else customLocation
 
-        mapFragment?.getDirection(
+        mapFragment.getDirection(
                 start,
                 doctorLocation,
                 "driving",
@@ -217,7 +217,7 @@ class MatchingActivity : AppCompatActivity() {
     fun drawWalking(){
         var start = if(useCurrentLocation) currentLocation else customLocation
 
-        mapFragment?.getDirection(
+        mapFragment.getDirection(
                 start,
                 doctorLocation,
                 "walking",
@@ -232,10 +232,6 @@ class MatchingActivity : AppCompatActivity() {
     fun onSearching(v: View){
         val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this)
         startActivityForResult(intent, Const.REQ_PLACE_AUTOCOMPLATE)
-    }
-
-    fun onConfirm(v: View){
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -301,7 +297,7 @@ class MatchingActivity : AppCompatActivity() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    fun onSlectingTime(v: View){
+    fun onConfirm(v: View){
 
     }
 
