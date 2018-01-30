@@ -6,10 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".ApplicationInitializer"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".ApplicationInitializer"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -22,13 +22,17 @@
             android:theme="@style/SplashTheme.">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".MatchingActivity"/>
-        <activity android:name=".controller.DoctorMatchActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".MatchingActivity" />
+        <activity android:name=".controller.DoctorMatchActivity" />
+        <activity android:name=".controller.ConfirmActivity" />
+        <activity android:name=".controller.ConfirmPopUpActivity" />
+        <activity android:name=".controller.MatchingInfoActivity"></activity>
     </application>
 
 </manifest>
