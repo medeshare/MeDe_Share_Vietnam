@@ -30,6 +30,7 @@
             android:onClick="onConfirm"
             android:text="confirm"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:onClick="onSelectingTime"/>
     </RelativeLayout>
 </layout>
