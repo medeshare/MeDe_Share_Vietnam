@@ -159,17 +159,19 @@ class MainActivity : AppCompatActivity() {
     private fun setCustomActionbar() {
         val actionBar = supportActionBar
 
-        actionBar!!.setDisplayShowCustomEnabled(true)
-        actionBar.setDisplayHomeAsUpEnabled(false)
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.elevation=0f
+        if(actionBar != null){
+            actionBar.setDisplayShowCustomEnabled(true)
+            actionBar.setDisplayHomeAsUpEnabled(false)
+            actionBar.setDisplayShowTitleEnabled(false)
+            actionBar.elevation = 0f
 
-        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
-        val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
-        actionBar.setCustomView(mCustomView, params)
+            val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
+            val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
+            actionBar.setCustomView(mCustomView, params)
 
-        val parent = mCustomView.getParent() as Toolbar
-        parent.setContentInsetsAbsolute(0, 0)
+            val parent = mCustomView.getParent() as Toolbar
+            parent.setContentInsetsAbsolute(0, 0)
+        }
     }
 
     private fun onLocationChange(){

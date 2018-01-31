@@ -11,6 +11,17 @@
         android:elevation="0dp">
 
         <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:background="@drawable/ic_30_back_01"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/btnMenu"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
@@ -18,19 +29,41 @@
             android:layout_marginLeft="13dp"
             android:background="@drawable/ic_30_menu" />
 
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="title"
+            android:textColor="#ffffff"
+            android:textSize="19sp"
+            android:visibility="gone" />
+
         <ImageView
+            android:id="@+id/ivLogo"
             android:layout_width="67dp"
             android:layout_height="27dp"
             android:layout_centerInParent="true"
             android:background="@drawable/ic_logo" />
 
         <ImageButton
+            android:id="@+id/btnAlarm"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="13dp"
             android:background="@drawable/ic_30_bell" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/ic_30_cancel_01"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

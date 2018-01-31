@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_matching_info.*
 import kotlinx.android.synthetic.main.bottom_doctor_infomation.*
+import kotlinx.android.synthetic.main.custom_action_bar.view.*
 import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.databinding.BottomDoctorInfomationBinding
@@ -184,20 +185,27 @@ class MatchingInfoActivity : AppCompatActivity() {
     private fun setCustomActionbar() {
         val actionBar = supportActionBar
 
-        actionBar!!.setDisplayShowCustomEnabled(true)
-        actionBar.setDisplayHomeAsUpEnabled(false)
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.elevation=0f
+        if(actionBar != null){
+            actionBar.setDisplayShowCustomEnabled(true)
+            actionBar.setDisplayHomeAsUpEnabled(false)
+            actionBar.setDisplayShowTitleEnabled(false)
+            actionBar.elevation = 0f
 
+            val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
+            mCustomView.btnAlarm.visibility = View.GONE
+            mCustomView.ivLogo.visibility = View.GONE
+            mCustomView.btnClose.visibility = View.VISIBLE
+            mCustomView.btnClose.setOnClickListener { _ -> setResult(Activity.RESULT_CANCELED)
+                finish() }
+            mCustomView.tvTitle.visibility = View.VISIBLE
+            mCustomView.tvTitle.text = currentDoctor.name
 
-        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
-        actionBar.setCustomView(mCustomView)
+            val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
+            actionBar.setCustomView(mCustomView, params)
 
-        val parent = mCustomView.getParent() as Toolbar
-        parent.setContentInsetsAbsolute(0, 0)
-
-        val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
-        actionBar.setCustomView(mCustomView, params)
+            val parent = mCustomView.getParent() as Toolbar
+            parent.setContentInsetsAbsolute(0, 0)
+        }
     }
 
     private fun onLocationChange(){
