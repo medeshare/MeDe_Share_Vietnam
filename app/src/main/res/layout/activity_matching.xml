@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1990ff"
-    tools:context="mede.com.medesharevietnam.MatchingActivity">
+    tools:context="mede.com.medesharevietnam.controller.MatchingActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

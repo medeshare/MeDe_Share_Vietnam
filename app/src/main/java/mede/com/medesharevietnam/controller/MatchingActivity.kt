@@ -1,4 +1,4 @@
-package mede.com.medesharevietnam
+package mede.com.medesharevietnam.controller
 
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.GoogleMapFragment
 import a.mnisdh.com.kotlingooglemap.googleMapAPIs.domain.directions.Routes
@@ -24,8 +24,11 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_matching.*
 import kotlinx.android.synthetic.main.bottom_matching_select.*
-import kotlinx.android.synthetic.main.custom_action_bar.view.*
+
+import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.common.Const
+
+import kotlinx.android.synthetic.main.custom_action_bar.view.*
 import mede.com.medesharevietnam.controller.ConfirmActivity
 import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.medical.MediDisease
@@ -113,7 +116,7 @@ class MatchingActivity : AppCompatActivity() {
             var latLng = LatLng(21.083026, 105.780140)
             markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
 
-            mapFragment.addMarker(doctorLocation, "doctor",  R.drawable.ic_48_pin_doctor)
+            mapFragment.addMarker(doctorLocation, "doctor", R.drawable.ic_48_pin_doctor)
 
             initLocationClient()
 

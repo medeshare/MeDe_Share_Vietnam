@@ -1,4 +1,4 @@
-package mede.com.medesharevietnam
+package mede.com.medesharevietnam.controller
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,18 +9,24 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import kotlinx.android.synthetic.main.activity_chat.*
+import mede.com.medesharevietnam.R
+import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.custom.MsgRecyclerAdapter
 import mede.com.medesharevietnam.domain.chat.MsgItem
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ChatActivity : AppCompatActivity() {
+    var doctorName:String = ""
     lateinit private var msgAdapter : MsgRecyclerAdapter
     val url: String = "http://cdn.ajoumc.or.kr/Upload/MedicalCenter/Doctor/Profile/201303/104382.jpg"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        doctorName = intent.getStringExtra(Const.EXT_DOCTOR_NAME)
+
         initView()
     }
 
@@ -36,6 +42,8 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
         })
+
+        txt_name.text=doctorName
 
         msgAdapter = MsgRecyclerAdapter(this)
         chatRecyclerView.adapter = msgAdapter
@@ -59,6 +67,10 @@ class ChatActivity : AppCompatActivity() {
         var date = Date(now)
         var sdf = SimpleDateFormat("a HH:mm")
         return sdf.format(date)
+    }
+
+    fun back(v:View){
+        finish()
     }
 
     fun send(v:View){

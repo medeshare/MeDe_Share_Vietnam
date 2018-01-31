@@ -53,7 +53,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="13dp"
-            android:background="@drawable/ic_30_bell" />
+            android:background="@drawable/ic_30_bell"
+            android:onClick="test" />
 
         <ImageButton
             android:id="@+id/btnClose"
