@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f2f7"
+    tools:context="mede.com.medesharevietnam.controller.ConfirmActivity">
+
+    <RelativeLayout
+        android:id="@+id/topStage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="9dp"
+            android:background="@android:color/transparent"
+            android:onClick="onCancel"
+            app:srcCompat="@drawable/ic_30_back_02" />
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivProfile"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="41dp"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textColor="#333333"
+            android:textSize="21sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/midStage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topStage">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recycler_layout_border">
+
+            <TextView
+                android:id="@+id/tvSymptomTitle"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="18dp"
+                android:text="Symptom"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvSymptomValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginRight="46dp"
+                android:layout_marginTop="18dp"
+                android:layout_toRightOf="@+id/tvSymptomTitle"
+                android:text="Cold Common"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recycler_layout_border">
+
+            <TextView
+                android:id="@+id/tvPlaceTitle"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="18dp"
+                android:text="Place"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvPlaceValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginRight="46dp"
+                android:layout_marginTop="18dp"
+                android:layout_toRightOf="@+id/tvPlaceTitle"
+                android:text="At my house"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/btnPlace"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@android:color/transparent"
+                android:tint="#bfbfbf"
+                app:srcCompat="@drawable/ic_20_edit_nor" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recycler_layout_border">
+
+            <TextView
+                android:id="@+id/tvTimeTitle"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="18dp"
+                android:text="Time"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvTimeValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginRight="46dp"
+                android:layout_marginTop="18dp"
+                android:layout_toRightOf="@+id/tvTimeTitle"
+                android:text="Today, PM 5:30"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/btnTime"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@android:color/transparent"
+                android:tint="#bfbfbf"
+                app:srcCompat="@drawable/ic_20_edit_nor" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvPriceTitle"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="18dp"
+                android:text="Price"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvPriceValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:layout_marginRight="46dp"
+                android:layout_marginTop="18dp"
+                android:layout_toRightOf="@+id/tvPriceTitle"
+                android:text="About $10/Case"
+                android:textAlignment="textStart"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomStage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#c4c4c4"
+            android:enabled="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:onClick="onCancel"
+            android:text="cancel"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/btnAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#1990ff"
+            android:enabled="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:onClick="onAppointment"
+            android:text="appointment"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

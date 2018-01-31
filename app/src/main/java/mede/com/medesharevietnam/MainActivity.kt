@@ -126,17 +126,15 @@ class MainActivity : AppCompatActivity() {
             if (marker != null && marker.tag != null) {
                 var mediLocation = marker.tag as MediLocation
 
-                if(mediLocation != null){
-                    if(mediLocation.type == "1"){
-                        isDoctor = true
-                        var doctor = Doctor()
-                        doctor.key = mediLocation.key
-                        doctor.name = mediLocation.name
-                        doctor.rank = "4.2"
-                        doctor.subjectName = mediLocation.getMediSubject()!!.name
+                if (mediLocation.type == "1") {
+                    isDoctor = true
+                    var doctor = Doctor()
+                    doctor.key = mediLocation.key
+                    doctor.name = mediLocation.name
+                    doctor.rank = "4.2"
+                    doctor.subjectName = mediLocation.getMediSubject()!!.name
 
-                        bottomBinding.doctor = doctor
-                    }
+                    bottomBinding.doctor = doctor
                 }
             }
 
@@ -151,9 +149,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView(){
-        tgUseLocation.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
-        tgUseFavorite.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
-        tgUseHospital.setOnCheckedChangeListener { buttonView, isChecked -> if(isChecked) onLocationChange() }
+        tgUseLocation.setOnCheckedChangeListener { _, isChecked -> if(isChecked) onLocationChange() }
+        tgUseFavorite.setOnCheckedChangeListener { _, isChecked -> if(isChecked) onLocationChange() }
+        tgUseHospital.setOnCheckedChangeListener { _, isChecked -> if(isChecked) onLocationChange() }
     }
 
     private fun setCustomActionbar() {
@@ -202,7 +200,7 @@ class MainActivity : AppCompatActivity() {
         else markerLocation!!.position = latLng
     }
 
-    fun onSearch(v: View){
+    fun onSearch(v: View) {
         val intent = Intent(this, SearchActivity::class.java)
         startActivityForResult(intent, Const.REQ_DISEASE_AUTOCOMPLETE)
         overridePendingTransition(0, 0)
@@ -215,9 +213,7 @@ class MainActivity : AppCompatActivity() {
 
         for(location in locations){
             var latlng = LatLng(location.lat, location.lng)
-            var icon = 0
-            if(location.type == "1") icon = R.drawable.ic_48_pin_doctor
-            else icon = R.drawable.ic_48_pin_pharmacy
+            var icon = if(location.type == "1") R.drawable.ic_48_pin_doctor else R.drawable.ic_48_pin_pharmacy
 
             var marker = mapFragment.addMarker(latlng, location.name, icon)
             marker.tag = location
@@ -235,9 +231,7 @@ class MainActivity : AppCompatActivity() {
 
             for(location in locations){
                 var latlng = LatLng(location.lat, location.lng)
-                var icon = 0
-                if(location.type == "1") icon = R.drawable.ic_48_pin_doctor
-                else icon = R.drawable.ic_48_pin_pharmacy
+                var icon = if(location.type == "1") R.drawable.ic_48_pin_doctor else R.drawable.ic_48_pin_pharmacy
 
                 var marker = mapFragment.addMarker(latlng, location.name, icon)
                 marker.tag = location
