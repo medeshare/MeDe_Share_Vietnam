@@ -92,7 +92,7 @@ class MatchingActivity : AppCompatActivity() {
     private fun updateMarkerLocation(lat:Double, lng:Double){
         var latLng = LatLng(lat, lng)
         if(markerLocation == null){
-            markerLocation = mapFragment.addMarker(latLng, "My location", R.drawable.ic_75_point)
+            markerLocation = mapFragment.addCenterMarker(latLng, "My location", R.drawable.ic_75_point)
         }
         else markerLocation!!.position = latLng
     }
@@ -247,6 +247,10 @@ class MatchingActivity : AppCompatActivity() {
                 drawDriving()
             }
         }
+        else if(requestCode == Const.REQ_DOCTOR_MATCH){
+            setResult(resultCode, data)
+            finish()
+        }
     }
 
     var directionLines: ArrayList<Polyline> = ArrayList()
@@ -260,7 +264,7 @@ class MatchingActivity : AppCompatActivity() {
 
         if(routes != null) {
             var isFirst = true
-            var color = Color.BLUE
+            var color = Color.parseColor("#21c9d9")
 
             var minLat = 99999999.9
             var maxLat = -99999999.9
@@ -301,7 +305,7 @@ class MatchingActivity : AppCompatActivity() {
     fun onConfirm(v: View){
         val intentMatching = Intent(this, ConfirmActivity::class.java)
         intentMatching.putExtra(Const.EXT_DOCTOR_KEY, doctorKey)
-        startActivity(intentMatching)
+        startActivityForResult(intentMatching, Const.REQ_DOCTOR_MATCH)
     }
 
 //    customized dialog from matching_confirm layout

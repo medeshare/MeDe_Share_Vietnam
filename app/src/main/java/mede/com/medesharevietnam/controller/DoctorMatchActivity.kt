@@ -127,6 +127,13 @@ class DoctorMatchActivity : AppCompatActivity() {
     fun onMatchingSelect(v: View){
         val intentMatching = Intent(this, MatchingActivity::class.java)
         intentMatching.putExtra(Const.EXT_DOCTOR_KEY, doctorKey)
-        startActivity(intentMatching)
+        startActivityForResult(intentMatching, Const.REQ_DOCTOR_MATCH)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == Const.REQ_DOCTOR_MATCH){
+            setResult(resultCode, data)
+            finish()
+        }
     }
 }

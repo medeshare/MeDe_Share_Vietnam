@@ -23,10 +23,13 @@ import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.controller.DoctorMatchActivity
+import mede.com.medesharevietnam.controller.MatchingInfoActivity
 import mede.com.medesharevietnam.databinding.BottomDoctorInfomationBinding
 import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.medical.MediDisease
 import mede.com.medesharevietnam.domain.medical.MediLocation
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -142,7 +145,6 @@ class MainActivity : AppCompatActivity() {
             else bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
         }
         mapFragment.setOnMapClicked {
-            var bottomSheetBehavior = BottomSheetBehavior.from(bottomBinding.root)
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
         }
         mapFragment.getMapAsync(mapFragment)
@@ -162,15 +164,12 @@ class MainActivity : AppCompatActivity() {
         actionBar.setDisplayShowTitleEnabled(false)
         actionBar.elevation=0f
 
-
         val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
-        actionBar.setCustomView(mCustomView)
+        val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
+        actionBar.setCustomView(mCustomView, params)
 
         val parent = mCustomView.getParent() as Toolbar
         parent.setContentInsetsAbsolute(0, 0)
-
-        val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
-        actionBar.setCustomView(mCustomView, params)
     }
 
     private fun onLocationChange(){
@@ -195,7 +194,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateMarkerLocation(lat:Double, lng:Double){
         var latLng = LatLng(lat, lng)
         if(markerLocation == null){
-            markerLocation = mapFragment.addMarker(latLng, "My location", R.drawable.ic_75_point)
+            markerLocation = mapFragment.addCenterMarker(latLng, "My location", R.drawable.ic_75_point)
         }
         else markerLocation!!.position = latLng
     }
@@ -266,6 +265,13 @@ class MainActivity : AppCompatActivity() {
             if(resultCode == RESULT_OK) {
                 selectedDisease = data?.getSerializableExtra("Disease") as MediDisease
                 search(selectedDisease)
+            }
+        }
+        else if(requestCode == Const.REQ_DOCTOR_MATCH){
+            if(resultCode == RESULT_OK) {
+                val intent = Intent(this, MatchingInfoActivity::class.java)
+                intent.putExtra(Const.EXT_DOCTOR_KEY, data?.getStringExtra(Const.EXT_DOCTOR_KEY))
+                startActivity(intent)
             }
         }
     }
