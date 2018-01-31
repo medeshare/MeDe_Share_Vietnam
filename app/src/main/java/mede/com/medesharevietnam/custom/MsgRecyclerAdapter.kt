@@ -4,7 +4,9 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.custom_message.view.*
 import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.databinding.CustomMessageBinding
 import mede.com.medesharevietnam.domain.chat.MsgItem
@@ -36,6 +38,11 @@ class MsgRecyclerAdapter(val context: Context): RecyclerView.Adapter<MsgRecycler
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        if(position-1>=0 && msgData[position-1].who==false){
+            holder.itemView.imageView.visibility= View.INVISIBLE
+        }else{
+            holder.itemView.imageView.visibility= View.VISIBLE
+        }
         holder.setItem(msgData[position])
     }
 

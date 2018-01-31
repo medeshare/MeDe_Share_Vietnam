@@ -1,4 +1,4 @@
-package mede.com.medesharevietnam
+package mede.com.medesharevietnam.controller
 
 import android.app.Activity
 import android.os.Bundle
@@ -13,6 +13,7 @@ import android.view.View
 import android.view.View.*
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.activity_search.*
+import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.custom.MediAutoCompleteAdapter
 import mede.com.medesharevietnam.custom.RecyclerAdapter
 import mede.com.medesharevietnam.domain.SearchData

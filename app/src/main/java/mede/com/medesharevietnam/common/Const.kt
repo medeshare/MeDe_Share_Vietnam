@@ -9,4 +9,5 @@ object Const {
     val REQ_DOCTOR_MATCH = 300
 
     val EXT_DOCTOR_KEY = "doctor_key"
+    val EXT_DOCTOR_NAME = "doctor_name"
 }

@@ -30,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/otherCardView"
+                android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/otherCardView"
                 android:layout_toRightOf="@+id/otherCardView"
                 android:background="#f1f5f8"
@@ -71,6 +72,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_margin="12dp"
                         android:layout_marginLeft="5dp"
+                        android:autoText="false"
+                        android:maxWidth="176dp"
                         android:text="@{item.content}"
                         android:textSize="17sp" />
 
@@ -124,6 +127,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="12dp"
+                        android:maxWidth="176dp"
                         android:text="@{item.content}"
                         android:textColor="#ffffff"
                         android:textSize="17sp" />

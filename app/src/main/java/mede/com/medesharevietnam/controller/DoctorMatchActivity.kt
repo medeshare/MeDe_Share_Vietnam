@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_doctor_match.*
-import mede.com.medesharevietnam.MatchingActivity
 import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.common.DataBinder

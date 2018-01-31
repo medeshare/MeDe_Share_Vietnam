@@ -22,7 +22,10 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
+import mede.com.medesharevietnam.controller.ChatActivity
 import mede.com.medesharevietnam.controller.DoctorMatchActivity
+import mede.com.medesharevietnam.controller.HanoiDeptActivity
+import mede.com.medesharevietnam.controller.SearchActivity
 import mede.com.medesharevietnam.databinding.BottomDoctorInfomationBinding
 import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.medical.MediDisease
@@ -255,7 +258,8 @@ class MainActivity : AppCompatActivity() {
 
     fun onChat(v: View){
         if (useDoctorMatch()) {
-            val intent = Intent(this,ChatActivity::class.java)
+            val intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra(Const.EXT_DOCTOR_NAME,bottomBinding.doctor!!.name)
             startActivity(intent)
         }
     }
@@ -266,6 +270,11 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(Const.EXT_DOCTOR_KEY, bottomBinding.doctor!!.key)
             startActivityForResult(intent, Const.REQ_DOCTOR_MATCH)
         }
+    }
+
+    fun test(v:View){
+        val intent = Intent(this, HanoiDeptActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
