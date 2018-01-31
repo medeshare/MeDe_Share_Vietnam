@@ -58,6 +58,14 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
                 .snippet("Population: 4,137,400")
                 .icon(BitmapDescriptorFactory.fromResource(iconResourceId)))
     }
+    fun addCenterMarker(latLng: LatLng, title: String, iconResourceId: Int):Marker{
+        return gMap.addMarker(MarkerOptions()
+                .anchor(0.5f, 0.5f)
+                .position(latLng)
+                .title(title)
+                .snippet("Population: 4,137,400")
+                .icon(BitmapDescriptorFactory.fromResource(iconResourceId)))
+    }
 
     fun moveToCamera(latLng: LatLng, scale: Float){
         gMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(latLng, scale)))
@@ -97,7 +105,6 @@ class GoogleMapFragment : SupportMapFragment(), OnMapReadyCallback {
     fun drawPolyline(latLngs: List<LatLng>, color: Int, width: Float): Polyline{
         val rectOptions = PolylineOptions()
         rectOptions.addAll(latLngs)
-
         rectOptions.color(color)
         rectOptions.width(width)
 
