@@ -31,6 +31,7 @@
                 android:layout_height="46dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/ivProfile"
+                android:onClick="onChat"
                 app:srcCompat="@drawable/btn_46_chat" />
 
             <ImageView

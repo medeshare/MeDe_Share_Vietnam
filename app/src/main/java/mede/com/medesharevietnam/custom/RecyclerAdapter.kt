@@ -78,7 +78,6 @@ class RecyclerAdapter(val context: Context, val itemClick : (SearchData)->Unit) 
             txtDisease?.text = data.disease
             txtDate?.text = data.date
             txtDisease.setOnClickListener{itemClick(data)}
-
         }
 
     }
