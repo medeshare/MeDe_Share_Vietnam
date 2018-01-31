@@ -253,6 +253,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onChat(v: View){
+        if (useDoctorMatch()) {
+            val intent = Intent(this,ChatActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     fun onMatching(v: View){
         if(useDoctorMatch()){
             val intent = Intent(this, DoctorMatchActivity::class.java)
