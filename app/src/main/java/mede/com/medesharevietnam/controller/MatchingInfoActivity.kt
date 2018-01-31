@@ -305,7 +305,8 @@ class MatchingInfoActivity : AppCompatActivity() {
                 maxLat = if (maxLat < northeast.latitude) northeast.latitude else maxLat
                 maxLng = if (maxLng < northeast.longitude) northeast.longitude else maxLng
 
-                directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 15F))
+                val scale = resources.displayMetrics.density
+                directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 4.0f * scale))
 
                 if (isFirst) {
                     color = Color.DKGRAY
@@ -315,5 +316,7 @@ class MatchingInfoActivity : AppCompatActivity() {
 
             mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
         }
+
+        progress.visibility = View.GONE
     }
 }
