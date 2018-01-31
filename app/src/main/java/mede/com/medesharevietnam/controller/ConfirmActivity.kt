@@ -23,7 +23,10 @@ class ConfirmActivity : AppCompatActivity() {
         setContentView(R.layout.activity_confirm)
 
         doctorKey = intent.getStringExtra(Const.EXT_DOCTOR_KEY)
-        if(doctorKey == null && doctorKey == "") finishActivity(Activity.RESULT_CANCELED)
+        if(doctorKey == null && doctorKey == "") {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
 
         initView()
 
@@ -57,6 +60,14 @@ class ConfirmActivity : AppCompatActivity() {
 
     fun onAppointment(v: View){
         val intent = Intent(this, ConfirmPopUpActivity::class.java)
-        startActivity(intent)
+        intent.putExtra(Const.EXT_DOCTOR_KEY, doctorKey)
+        startActivityForResult(intent, Const.REQ_DOCTOR_MATCH)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == Const.REQ_DOCTOR_MATCH){
+            setResult(resultCode, data)
+            finish()
+        }
     }
 }

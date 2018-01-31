@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#1990ff"
+tools:context="mede.com.medesharevietnam.controller.MatchingInfoActivity">
+
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mede.com.medesharevietnam.controller.MatchingInfoActivity">
+    android:layout_alignParentTop="true"
+    android:background="#1990ff"
+    android:elevation="0dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:name="a.mnisdh.com.kotlingooglemap.googleMapAPIs.GoogleMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/fabStage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map">
+
+        <ToggleButton
+            android:id="@+id/tgUseLocation"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/toggle_use_location"
+            android:checked="false"
+            android:textOff=""
+            android:textOn="" />
+
+        <ToggleButton
+            android:id="@+id/tgUseFavorite"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/toggle_use_favorite"
+            android:checked="false"
+            android:textOff=""
+            android:textOn=""  />
+
+        <ToggleButton
+            android:id="@+id/tgUseHospital"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/toggle_use_hospital"
+            android:checked="false"
+            android:textOff=""
+            android:textOn="" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
+
+<include
+    android:id="@+id/bottomSheet"
+    layout="@layout/bottom_doctor_infomation"
+    android:visibility="visible" />
+
+</android.support.design.widget.CoordinatorLayout>

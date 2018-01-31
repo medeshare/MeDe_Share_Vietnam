@@ -24,13 +24,20 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_matching.*
 import kotlinx.android.synthetic.main.bottom_matching_select.*
+
 import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.common.Const
+
+import kotlinx.android.synthetic.main.custom_action_bar.view.*
+import mede.com.medesharevietnam.controller.ConfirmActivity
+import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.medical.MediDisease
 import mede.com.medesharevietnam.domain.medical.MedicalManager
 
 class MatchingActivity : AppCompatActivity() {
     var doctorKey:String = ""
+    lateinit var currentDoctor: Doctor
+
     var useCurrentLocation = true
     var currentLocation: LatLng = LatLng(0.0, 0.0)
     var customLocation: LatLng = LatLng(0.0, 0.0)
@@ -49,10 +56,16 @@ class MatchingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_matching)
 
         doctorKey = intent.getStringExtra(Const.EXT_DOCTOR_KEY)
-        if(doctorKey == "") finishActivity(Activity.RESULT_CANCELED)
+        if(doctorKey == "") {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
 
         var mediLoc = MedicalManager.getLocation(doctorKey)
         doctorLocation = LatLng(mediLoc!!.lat, mediLoc.lng)
+        currentDoctor = Doctor()
+        currentDoctor.key = doctorKey
+        currentDoctor.name = mediLoc.name
 
         setCustomActionbar()
         init()
@@ -92,7 +105,7 @@ class MatchingActivity : AppCompatActivity() {
     private fun updateMarkerLocation(lat:Double, lng:Double){
         var latLng = LatLng(lat, lng)
         if(markerLocation == null){
-            markerLocation = mapFragment.addMarker(latLng, "My location", R.drawable.ic_75_point)
+            markerLocation = mapFragment.addCenterMarker(latLng, "My location", R.drawable.ic_75_point)
         }
         else markerLocation!!.position = latLng
     }
@@ -147,20 +160,27 @@ class MatchingActivity : AppCompatActivity() {
     private fun setCustomActionbar() {
         val actionBar = supportActionBar
 
-        actionBar!!.setDisplayShowCustomEnabled(true)
-        actionBar.setDisplayHomeAsUpEnabled(false)
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.elevation=0f
+        if(actionBar != null){
+            actionBar.setDisplayShowCustomEnabled(true)
+            actionBar.setDisplayHomeAsUpEnabled(false)
+            actionBar.setDisplayShowTitleEnabled(false)
+            actionBar.elevation = 0f
 
+            val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
+            mCustomView.btnMenu.visibility = View.GONE
+            mCustomView.ivLogo.visibility = View.GONE
+            mCustomView.btnBack.visibility = View.VISIBLE
+            mCustomView.btnBack.setOnClickListener { _ -> setResult(Activity.RESULT_CANCELED)
+                finish() }
+            mCustomView.tvTitle.visibility = View.VISIBLE
+            mCustomView.tvTitle.text = currentDoctor.name
 
-        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
-        actionBar.setCustomView(mCustomView)
+            val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
+            actionBar.setCustomView(mCustomView, params)
 
-        val parent = mCustomView.getParent() as Toolbar
-        parent.setContentInsetsAbsolute(0, 0)
-
-        val params = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT)
-        actionBar.setCustomView(mCustomView, params)
+            val parent = mCustomView.getParent() as Toolbar
+            parent.setContentInsetsAbsolute(0, 0)
+        }
     }
 
     private fun setEstimTime(){
@@ -247,6 +267,10 @@ class MatchingActivity : AppCompatActivity() {
                 drawDriving()
             }
         }
+        else if(requestCode == Const.REQ_DOCTOR_MATCH){
+            setResult(resultCode, data)
+            finish()
+        }
     }
 
     var directionLines: ArrayList<Polyline> = ArrayList()
@@ -260,7 +284,7 @@ class MatchingActivity : AppCompatActivity() {
 
         if(routes != null) {
             var isFirst = true
-            var color = Color.BLUE
+            var color = Color.parseColor("#21c9d9")
 
             var minLat = 99999999.9
             var maxLat = -99999999.9
@@ -286,6 +310,8 @@ class MatchingActivity : AppCompatActivity() {
 
             mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
         }
+
+
     }
 
     fun onSelecting(v: View){
@@ -301,7 +327,7 @@ class MatchingActivity : AppCompatActivity() {
     fun onConfirm(v: View){
         val intentMatching = Intent(this, ConfirmActivity::class.java)
         intentMatching.putExtra(Const.EXT_DOCTOR_KEY, doctorKey)
-        startActivity(intentMatching)
+        startActivityForResult(intentMatching, Const.REQ_DOCTOR_MATCH)
     }
 
 //    customized dialog from matching_confirm layout
