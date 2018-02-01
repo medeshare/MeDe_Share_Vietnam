@@ -125,4 +125,9 @@
         layout="@layout/bottom_doctor_infomation"
         android:visibility="visible" />
 
+    <include
+        android:id="@+id/bottomSheetHospital"
+        layout="@layout/bottom_hospital_infomation"
+        android:visibility="visible" />
+
 </android.support.design.widget.CoordinatorLayout>
