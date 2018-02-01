@@ -110,8 +110,9 @@ class MatchingActivity : AppCompatActivity() {
     fun init() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as GoogleMapFragment
         mapFragment.setOnMapReadied{
-            var latLng = LatLng(21.083026, 105.780140)
-            markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
+            var hanoi = MedicalManager.getHanoiHospital()
+            var latLng = LatLng(hanoi.lat, hanoi.lng)
+            markerHospital = mapFragment.addMarker(latLng, hanoi.name, R.drawable.ic_48_pin_hospital)
 
             mapFragment.addMarker(doctorLocation, "doctor", R.drawable.ic_48_pin_doctor)
 

@@ -84,6 +84,12 @@ object MedicalManager{
         subjects.add(MediSubject("m05", "Dental surgery"))
     }
 
+    fun getHanoiHospital():MediHospital{
+        var result = MediHospital()
+
+        return result
+    }
+
     fun getDisease(diseaseKey:String):MediDisease?{
         for(disease in diseases){
             if(disease.key == diseaseKey) return disease
