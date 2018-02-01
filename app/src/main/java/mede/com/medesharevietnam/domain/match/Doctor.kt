@@ -7,7 +7,7 @@ class Doctor {
     var key:String = ""
     var name:String = ""
     var subjectName:String = ""
-    var imageUrl:String = "http://cdn.ajoumc.or.kr/Upload/MedicalCenter/Doctor/Profile/201303/104382.jpg"
+    var imageUrl:String = "https://raw.githubusercontent.com/medeshare/MeDe_Share_Vietnam/master/doctor_profile.png"
     var rank:String = "3.5"
     var phoneNumber:String = "010-1234-1234"
     var tag:Any? = null
