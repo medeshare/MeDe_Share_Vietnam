@@ -293,11 +293,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun test(v:View){
-        val intent = Intent(this, HanoiDeptActivity::class.java)
-        startActivity(intent)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == Const.REQ_DISEASE_AUTOCOMPLETE){
             if(resultCode == RESULT_OK) {

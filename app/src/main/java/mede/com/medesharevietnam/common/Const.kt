@@ -10,4 +10,5 @@ object Const {
 
     val EXT_DOCTOR_KEY = "doctor_key"
     val EXT_DOCTOR_NAME = "doctor_name"
+    val EXT_MEDI_KEY = "medi_key"
 }

@@ -59,7 +59,6 @@ class SearchActivity : AppCompatActivity() {
         var adapter = MediAutoCompleteAdapter(this, R.layout.activity_main, R.id.tvDiseaseName, MedicalManager.getAllDiseases())
         tvMediSearch.setAdapter(adapter)
 
-
         recyclerAdapter = RecyclerAdapter(this){ data -> tvMediSearch.setText(data.disease)}
         recyclerView.adapter = recyclerAdapter
 
