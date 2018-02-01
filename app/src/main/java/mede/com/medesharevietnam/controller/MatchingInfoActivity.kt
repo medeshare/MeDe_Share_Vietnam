@@ -153,8 +153,9 @@ class MatchingInfoActivity : AppCompatActivity() {
             })
             bottomSheetBehavior.state = STATE_EXPANDED
 
-            var latLng = LatLng(21.083026, 105.780140)
-            markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
+            var hanoi = MedicalManager.getHanoiHospital()
+            var latLng = LatLng(hanoi.lat, hanoi.lng)
+            markerHospital = mapFragment.addMarker(latLng, hanoi.name, R.drawable.ic_48_pin_hospital)
 
             bottomBinding.doctor = currentDoctor
             updateMarkerDoctor(currentDoctorLocation.lat, currentDoctorLocation.lng)
@@ -305,7 +306,8 @@ class MatchingInfoActivity : AppCompatActivity() {
                 maxLat = if (maxLat < northeast.latitude) northeast.latitude else maxLat
                 maxLng = if (maxLng < northeast.longitude) northeast.longitude else maxLng
 
-                directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 15F))
+                val scale = resources.displayMetrics.density
+                directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 4.0f * scale))
 
                 if (isFirst) {
                     color = Color.DKGRAY
@@ -315,5 +317,7 @@ class MatchingInfoActivity : AppCompatActivity() {
 
             mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
         }
+
+        progress.visibility = View.GONE
     }
 }

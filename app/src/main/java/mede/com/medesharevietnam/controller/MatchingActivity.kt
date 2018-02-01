@@ -24,12 +24,9 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_matching.*
 import kotlinx.android.synthetic.main.bottom_matching_select.*
-
+import kotlinx.android.synthetic.main.custom_action_bar.view.*
 import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.common.Const
-
-import kotlinx.android.synthetic.main.custom_action_bar.view.*
-import mede.com.medesharevietnam.controller.ConfirmActivity
 import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.medical.MediDisease
 import mede.com.medesharevietnam.domain.medical.MedicalManager
@@ -113,8 +110,9 @@ class MatchingActivity : AppCompatActivity() {
     fun init() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as GoogleMapFragment
         mapFragment.setOnMapReadied{
-            var latLng = LatLng(21.083026, 105.780140)
-            markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
+            var hanoi = MedicalManager.getHanoiHospital()
+            var latLng = LatLng(hanoi.lat, hanoi.lng)
+            markerHospital = mapFragment.addMarker(latLng, hanoi.name, R.drawable.ic_48_pin_hospital)
 
             mapFragment.addMarker(doctorLocation, "doctor", R.drawable.ic_48_pin_doctor)
 
@@ -300,7 +298,8 @@ class MatchingActivity : AppCompatActivity() {
                 maxLat = if (maxLat < northeast.latitude) northeast.latitude else maxLat
                 maxLng = if (maxLng < northeast.longitude) northeast.longitude else maxLng
 
-                directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 15F))
+                val scale = resources.displayMetrics.density
+                directionLines.add(mapFragment.drawPolyline(route.overview_polyline.getPoints(), color, 4.0f * scale))
 
                 if (isFirst) {
                     color = Color.DKGRAY
@@ -311,7 +310,7 @@ class MatchingActivity : AppCompatActivity() {
             mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
         }
 
-
+        progress.visibility = View.GONE
     }
 
     fun onSelecting(v: View){

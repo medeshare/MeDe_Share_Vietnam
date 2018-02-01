@@ -22,17 +22,13 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.tasks.OnSuccessListener
 import kotlinx.android.synthetic.main.activity_main.*
 import mede.com.medesharevietnam.common.Const
-import mede.com.medesharevietnam.controller.ChatActivity
-import mede.com.medesharevietnam.controller.DoctorMatchActivity
-import mede.com.medesharevietnam.controller.HanoiDeptActivity
-import mede.com.medesharevietnam.controller.SearchActivity
-import mede.com.medesharevietnam.controller.MatchingInfoActivity
+import mede.com.medesharevietnam.controller.*
 import mede.com.medesharevietnam.databinding.BottomDoctorInfomationBinding
+import mede.com.medesharevietnam.databinding.BottomHospitalInfomationBinding
 import mede.com.medesharevietnam.domain.match.Doctor
 import mede.com.medesharevietnam.domain.medical.MediDisease
 import mede.com.medesharevietnam.domain.medical.MediLocation
-
-
+import mede.com.medesharevietnam.domain.medical.MedicalManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var mapFragment: GoogleMapFragment
     lateinit var bottomBinding: BottomDoctorInfomationBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    lateinit var bottomHospitalBinding: BottomHospitalInfomationBinding
+    lateinit var bottomSheetHospitalBehavior: BottomSheetBehavior<View>
     var locationClient: FusedLocationProviderClient? = null
     var selectedDisease: MediDisease? = null
 
@@ -119,36 +117,53 @@ class MainActivity : AppCompatActivity() {
             bottomBinding = DataBindingUtil.bind(bottomSheet)
             bottomSheetBehavior = BottomSheetBehavior.from(bottomBinding.root)
 
-            var latLng = LatLng(21.083026, 105.780140)
-            markerHospital = mapFragment.addMarker(latLng, "하노이 공공의과대학교(하노이대학병원)", R.drawable.ic_48_pin_hospital)
+            var hanoi = MedicalManager.getHanoiHospital()
+            var latLng = LatLng(hanoi.lat, hanoi.lng)
+            markerHospital = mapFragment.addMarker(latLng, hanoi.name, R.drawable.ic_48_pin_hospital)
+
+            bottomHospitalBinding = DataBindingUtil.bind(bottomSheetHospital)
+            bottomSheetHospitalBehavior = BottomSheetBehavior.from(bottomHospitalBinding.root)
+            bottomHospitalBinding.hospital = hanoi
 
             checkLocationPermission(true)
 
             initView()
         }
         mapFragment.setOnMarkerClicked { marker ->
-            var isDoctor = false
+            if(marker == markerHospital){
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                bottomSheetHospitalBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+            else
+            {
+                bottomSheetHospitalBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-            if (marker != null && marker.tag != null) {
-                var mediLocation = marker.tag as MediLocation
+                var isDoctor = false
 
-                if (mediLocation.type == "1") {
-                    isDoctor = true
-                    var doctor = Doctor()
-                    doctor.key = mediLocation.key
-                    doctor.name = mediLocation.name
-                    doctor.rank = "4.2"
-                    doctor.subjectName = mediLocation.getMediSubject()!!.name
+                if (marker != null && marker.tag != null) {
+                    var mediLocation = marker.tag as MediLocation
 
-                    bottomBinding.doctor = doctor
+                    if (mediLocation.type == "1") {
+                        isDoctor = true
+                        var doctor = Doctor()
+                        doctor.key = mediLocation.key
+                        doctor.name = mediLocation.name
+                        doctor.rank = "4.2"
+                        doctor.subjectName = mediLocation.getMediSubject()!!.name
+
+                        bottomBinding.doctor = doctor
+                    }
                 }
+
+                if(isDoctor) bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+                else bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
             }
 
-            if(isDoctor) bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-            else bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+
         }
         mapFragment.setOnMapClicked {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            bottomSheetHospitalBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         mapFragment.getMapAsync(mapFragment)
     }
@@ -227,6 +242,11 @@ class MainActivity : AppCompatActivity() {
         mapFragment.zoomToFit(markers, 10)
     }
 
+    fun onCheckup(v: View){
+        val intent = Intent(this, HanoiDeptActivity::class.java)
+        startActivity(intent)
+    }
+
     fun onMediSearch(v: View){
         if(selectedDisease != null){
             clearMarker()
@@ -260,7 +280,7 @@ class MainActivity : AppCompatActivity() {
     fun onChat(v: View){
         if (useDoctorMatch()) {
             val intent = Intent(this, ChatActivity::class.java)
-            intent.putExtra(Const.EXT_DOCTOR_NAME,bottomBinding.doctor!!.name)
+            intent.putExtra(Const.EXT_DOCTOR_NAME, bottomBinding.doctor!!.name)
             startActivity(intent)
         }
     }

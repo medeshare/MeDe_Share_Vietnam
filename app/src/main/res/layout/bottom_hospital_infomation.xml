@@ -8,8 +8,8 @@
     <data>
         <!--import type="android.view.View" /-->
         <variable
-            name="doctor"
-            type="mede.com.medesharevietnam.domain.match.Doctor" />
+            name="hospital"
+            type="mede.com.medesharevietnam.domain.medical.MediHospital" />
     </data>
 
     <RelativeLayout
@@ -25,35 +25,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp">
 
-            <ImageButton
-                android:id="@+id/btnChat"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/ivProfile"
-                android:background="@android:color/transparent"
-                android:onClick="onChat"
-                app:srcCompat="@drawable/btn_46_chat" />
-
             <ImageView
                 android:id="@+id/ivProfile"
                 android:layout_width="58dp"
-                android:layout_height="58dp"
+                android:layout_height="59dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                app:circle_image_url="@{doctor.imageUrl}" />
+                app:srcCompat="@drawable/ic_logo_hanoi_university" />
 
-            <ImageButton
-                android:id="@+id/btnCall"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/ivProfile"
-                android:background="@android:color/transparent"
-                android:onClick="onCall"
-                app:srcCompat="@drawable/btn_46_call" />
         </RelativeLayout>
 
         <TextView
@@ -62,52 +43,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/topStage"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:text="@{doctor.name}"
+            android:layout_marginTop="4dp"
+            android:text="@{hospital.name}"
             android:textAlignment="center"
+            android:textColor="#333333"
             android:textSize="21sp" />
-
-        <TextView
-            android:id="@+id/tvSubjectName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvName"
-            android:layout_marginTop="1dp"
-            android:text="@{doctor.subjectName}"
-            android:textAlignment="center" />
-
-        <RelativeLayout
-            android:id="@+id/rankStage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvSubjectName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp">
-
-            <ImageView
-                android:id="@+id/ivRank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_13_rank_full" />
-
-            <TextView
-                android:id="@+id/tvRank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/ivRank"
-                android:text="@{doctor.rank}" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/bottomStage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rankStage"
+            android:layout_below="@+id/tvName"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="27dp">
 
             <ImageView
                 android:id="@+id/ivPin"
@@ -131,11 +79,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tvMeter"
-                android:text="Location Infomation" />
+                android:text="1A Đức Thắng, Phường Đức Thắng" />
         </RelativeLayout>
 
         <Button
-            android:id="@+id/btnMatching"
+            android:id="@+id/btnCheckup"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="64dp"
@@ -143,10 +91,10 @@
             android:layout_below="@+id/bottomStage"
             android:layout_marginTop="24dp"
             android:background="#1990ff"
-            android:onClick="onMatching"
-            android:text="Matching"
+            android:onClick="onCheckup"
+            android:text="checkup"
             android:textColor="#ffffff"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </layout>

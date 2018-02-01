@@ -11,7 +11,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/recycler_layout_border">
 
         <ImageView
             android:id="@+id/ivProfile"
@@ -19,9 +20,9 @@
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
+            app:circle_image_url="@{doctor.userImageUrl}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:circle_image_url="@{doctor.userImageUrl}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvName"
