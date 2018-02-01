@@ -20,7 +20,9 @@ class HanoiDoctorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hanoi_doctor)
+
         mediKey = intent.getStringExtra(Const.EXT_MEDI_KEY)
+
         initView()
     }
 

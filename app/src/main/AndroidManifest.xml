@@ -63,6 +63,7 @@
         <activity 
             android:name=".controller.HanoiDoctorActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/NoActionBarTheme" />
         <activity 
             android:name=".controller.HospitalDoctorProfileActivity"
