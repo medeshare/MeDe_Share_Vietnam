@@ -72,7 +72,6 @@ class MatchingInfoActivity : AppCompatActivity() {
         currentDoctor.key = currentDoctorLocation.key
         currentDoctor.name = currentDoctorLocation.name
         currentDoctor.subjectName = currentDoctorLocation.getMediSubject()!!.name
-        currentDoctor.imageUrl = "http://cdn.ajoumc.or.kr/Upload/MedicalCenter/Doctor/Profile/201303/104382.jpg"
 
         setCustomActionbar()
         init()

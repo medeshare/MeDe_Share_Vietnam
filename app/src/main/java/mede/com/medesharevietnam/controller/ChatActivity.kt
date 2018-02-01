@@ -19,7 +19,7 @@ import java.util.*
 class ChatActivity : AppCompatActivity() {
     var doctorName:String = ""
     lateinit private var msgAdapter : MsgRecyclerAdapter
-    val url: String = "http://cdn.ajoumc.or.kr/Upload/MedicalCenter/Doctor/Profile/201303/104382.jpg"
+    val url: String = "https://raw.githubusercontent.com/medeshare/MeDe_Share_Vietnam/master/doctor_profile.png"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

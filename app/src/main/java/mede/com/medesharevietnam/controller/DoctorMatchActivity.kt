@@ -59,7 +59,6 @@ class DoctorMatchActivity : AppCompatActivity() {
         var doctor = Doctor()
         doctor.name = mediLoc!!.name
         doctor.subjectName = mediLoc!!.getMediSubject()!!.name
-        doctor.imageUrl = "http://cdn.ajoumc.or.kr/Upload/MedicalCenter/Doctor/Profile/201303/104382.jpg"
 
         tvName.text = doctor.name
         tvSubjectName.text = doctor.subjectName
@@ -87,7 +86,7 @@ class DoctorMatchActivity : AppCompatActivity() {
         review.idx = 1
         review.userKey = "1"
         review.userName = "Daniel Thomas"
-        review.userImageUrl = "http://www.melbourneresumes.com.au/wp-content/uploads/best-linkedin-profile-examples-300x200.jpg"
+        review.userImageUrl = "https://raw.githubusercontent.com/medeshare/MeDe_Share_Vietnam/master/doctor_profile.png"
         review.rate = "4.3"
         review.rateTime = "2 min ago"
         review.review = "Dr. James made it easy during treatment, even though it was late. After the treatment, my fever went down. I'd like to meet again next time."
@@ -98,7 +97,7 @@ class DoctorMatchActivity : AppCompatActivity() {
         review.idx = 2
         review.userKey = "2"
         review.userName = "Avery Clayton"
-        review.userImageUrl = "http://www.mba.hec.edu/var/hec_mba/storage/images/student-life/student-profiles/reema-arya/332608-1-eng-GB/Reema-Arya_profile_image-HEC-Paris-MBA.jpg"
+        review.userImageUrl = "https://raw.githubusercontent.com/medeshare/MeDe_Share_Vietnam/master/doctor_profile.png"
         review.rate = "4.1"
         review.rateTime = "6 hour ago"
         review.review = "Great Doctor!"
@@ -109,7 +108,7 @@ class DoctorMatchActivity : AppCompatActivity() {
         review.idx = 3
         review.userKey = "3"
         review.userName = "Mas Hitman"
-        review.userImageUrl = "http://www.leisureopportunities.co.uk/images/coprofilepic1_3267.gif"
+        review.userImageUrl = "https://raw.githubusercontent.com/medeshare/MeDe_Share_Vietnam/master/doctor_profile.png"
         review.rate = "4.5"
         review.rateTime = "Yesterday"
         review.review = "He is very kind and answered all of my questions and concerns. "

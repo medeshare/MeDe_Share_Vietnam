@@ -46,7 +46,6 @@ class ConfirmActivity : AppCompatActivity() {
         var doctor = Doctor()
         doctor.name = mediLoc!!.name
         doctor.subjectName = mediLoc!!.getMediSubject()!!.name
-        doctor.imageUrl = "http://cdn.ajoumc.or.kr/Upload/MedicalCenter/Doctor/Profile/201303/104382.jpg"
 
         tvName.text = doctor.name
         tvSymptomValue.text = doctor.subjectName

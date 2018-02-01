@@ -19,15 +19,22 @@ import kotlinx.android.synthetic.main.item_hospital_doctor_schedule.*
 import mede.com.medesharevietnam.R
 import mede.com.medesharevietnam.common.Const
 import mede.com.medesharevietnam.common.DataBinder
-
-
+import mede.com.medesharevietnam.domain.match.Doctor
+import mede.com.medesharevietnam.domain.medical.MedicalManager
 
 
 class HospitalDoctorProfileActivity : AppCompatActivity() {
+    var doctorKey:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hospital_doctor_profile)
+
+        doctorKey = intent.getStringExtra(Const.EXT_DOCTOR_KEY)
+        if(doctorKey == null && doctorKey == "") {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
 
         setCustomActionbar()
         initView()
@@ -73,8 +80,16 @@ class HospitalDoctorProfileActivity : AppCompatActivity() {
                 TODO("not implemented")
         }
 
-        DataBinder.setImageUrl(ivProfile, "http://image.kmib.co.kr/online_image/2017/0925/201709251041_61120011781723_1.jpg")
+        var mediLoc = MedicalManager.getLocation(doctorKey)
+        var doctor = Doctor()
+        doctor.name = mediLoc!!.name
+        doctor.imageUrl = "https://raw.githubusercontent.com/medeshare/MeDe_Share_Vietnam/master/hospital_doctor_profile.jpeg"
+        doctor.subjectName = mediLoc.getMediSubject()!!.name
+
+        DataBinder.setImageUrl(ivProfile, doctor.imageUrl)
         ivProfile.setColorFilter(Color.parseColor("#BDBDBD"), PorterDuff.Mode.MULTIPLY)
+
+        tvName.text = doctor.name
     }
 
     fun onCall(v: View){
