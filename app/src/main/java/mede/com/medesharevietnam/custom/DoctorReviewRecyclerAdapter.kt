@@ -43,8 +43,8 @@ class DoctorReviewRecyclerAdapter(context: Context, itemClick: (SearchData) -> U
         return data.size
     }
 
-    override fun onBindViewHolder(holder: Holder?, position: Int) {
-        holder?.setItem(data.get(position))
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.setItem(data.get(position))
     }
 
     class Holder(itemBinding: ItemDoctorReviewBinding) : RecyclerView.ViewHolder(itemBinding.root) {
