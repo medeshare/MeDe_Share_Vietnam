@@ -244,6 +244,12 @@ class MatchingInfoActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun onChat(v: View) {
+        val intent = Intent(this, ChatActivity::class.java)
+        intent.putExtra(Const.EXT_DOCTOR_NAME, bottomBinding.doctor!!.name)
+        startActivity(intent)
+    }
+
     fun onMatching(v: View){
         setResult(Activity.RESULT_CANCELED)
         finish()
@@ -317,7 +323,5 @@ class MatchingInfoActivity : AppCompatActivity() {
 
             mapFragment.zoomToFit(LatLng(minLat - 0.05, minLng - 0.05), LatLng(maxLat + 0.05, maxLng + 0.05))
         }
-
-        progress.visibility = View.GONE
     }
 }

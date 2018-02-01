@@ -59,6 +59,7 @@
             android:id="@+id/ivDoctorPin"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginBottom="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/ivLocMap"
             app:layout_constraintEnd_toEndOf="@+id/ivLocMap"
             app:layout_constraintStart_toStartOf="@+id/ivLocMap"

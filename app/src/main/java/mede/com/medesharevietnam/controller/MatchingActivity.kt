@@ -211,11 +211,40 @@ class MatchingActivity : AppCompatActivity() {
                 })
     }
 
+    private fun changeDirectionButton(isDriving:Boolean){
+        var enableBackColor = Color.parseColor("#ffffff")
+        var disableBackColor = Color.parseColor("#0069cb")
+        var enableFontColor = Color.parseColor("#1990ff")
+        var disableFontColor = Color.parseColor("#ffffff")
+
+        var dirveBackColor = if(isDriving) enableBackColor else disableBackColor
+        var dirveFontColor = if(isDriving) enableFontColor else disableFontColor
+        var walkBackColor = if(!isDriving) enableBackColor else disableBackColor
+        var walkFontColor = if(!isDriving) enableFontColor else disableFontColor
+
+        cvDrive.setCardBackgroundColor(dirveBackColor)
+        tvEstimDrive.setTextColor(dirveFontColor)
+
+        cvWalk.setCardBackgroundColor(walkBackColor)
+        tvEstimWalk.setTextColor(walkFontColor)
+
+        if(isDriving){
+            ivDrive.setImageResource(R.drawable.ic_20_car_press)
+            ivWalk.setImageResource(R.drawable.ic_20_walk_nor)
+        }
+        else{
+            ivDrive.setImageResource(R.drawable.ic_20_car_nor)
+            ivWalk.setImageResource(R.drawable.ic_20_walk_press)
+        }
+    }
+
     fun onDriving(v: View){
         drawDriving()
     }
 
     fun drawDriving(){
+        changeDirectionButton(true)
+
         var start = if(useCurrentLocation) currentLocation else customLocation
 
         mapFragment.getDirection(
@@ -234,6 +263,8 @@ class MatchingActivity : AppCompatActivity() {
         drawWalking()
     }
     fun drawWalking(){
+        changeDirectionButton(false)
+
         var start = if(useCurrentLocation) currentLocation else customLocation
 
         mapFragment.getDirection(

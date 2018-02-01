@@ -136,22 +136,47 @@
                             android:gravity="center"
                             android:onClick="onDriving">
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginRight="3dp"
-                                android:background="@android:color/transparent"
-                                app:srcCompat="@drawable/ic_20_car_nor"/>
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/cvDrive"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="11dp"
+                                android:layout_marginLeft="22dp"
+                                android:layout_marginRight="22dp"
+                                android:layout_marginTop="11dp"
+                                app:cardCornerRadius="13dp"
+                                app:cardElevation="0dp">
 
-                            <TextView
-                                android:id="@+id/tvEstimDrive"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-light"
-                                android:text="10 mins"
-                                android:textColor="#ffffff"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center">
+
+                                    <ImageView
+                                        android:id="@+id/ivDrive"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginRight="3dp"
+                                        android:background="@android:color/transparent"
+                                        app:srcCompat="@drawable/ic_20_car_nor" />
+
+                                    <TextView
+                                        android:id="@+id/tvEstimDrive"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="3dp"
+                                        android:layout_toRightOf="@+id/ivDrive"
+                                        android:fontFamily="sans-serif-light"
+                                        android:text="10 mins"
+                                        android:textColor="#ffffff"
+                                        android:textSize="14sp"
+                                        android:textStyle="normal" />
+
+                                </RelativeLayout>
+
+                            </android.support.v7.widget.CardView>
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -161,22 +186,47 @@
                             android:gravity="center"
                             android:onClick="onWalking">
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginRight="3dp"
-                                android:background="@android:color/transparent"
-                                app:srcCompat="@drawable/ic_20_walk_press"/>
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/cvWalk"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="11dp"
+                                android:layout_marginLeft="22dp"
+                                android:layout_marginRight="22dp"
+                                android:layout_marginTop="11dp"
+                                app:cardCornerRadius="13dp"
+                                app:cardElevation="0dp">
 
-                            <TextView
-                                android:id="@+id/tvEstimWalk"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-light"
-                                android:text="20 mins"
-                                android:textColor="#ffffff"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center">
+
+                                    <ImageView
+                                        android:id="@+id/ivWalk"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginRight="3dp"
+                                        android:background="@android:color/transparent"
+                                        app:srcCompat="@drawable/ic_20_walk_press" />
+
+                                    <TextView
+                                        android:id="@+id/tvEstimWalk"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="3dp"
+                                        android:layout_toRightOf="@+id/ivWalk"
+                                        android:fontFamily="sans-serif-light"
+                                        android:text="20 mins"
+                                        android:textColor="#ffffff"
+                                        android:textSize="14sp"
+                                        android:textStyle="normal" />
+
+                                </RelativeLayout>
+
+                            </android.support.v7.widget.CardView>
+
                         </LinearLayout>
                     </LinearLayout>
                 </FrameLayout>
@@ -251,8 +301,15 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <include layout="@layout/bottom_matching_select" android:id="@+id/bottomSheetMatching"/>
-    <include layout="@layout/bottom_matching_time" android:id="@+id/bottomSheetMatchingTime"/>
+    <include
+        android:id="@+id/bottomSheetMatching"
+        layout="@layout/bottom_matching_select"
+        android:visibility="visible" />
+
+    <include
+        android:id="@+id/bottomSheetMatchingTime"
+        layout="@layout/bottom_matching_time"
+        android:visibility="visible" />
 
     <FrameLayout
         android:id="@+id/progress"
