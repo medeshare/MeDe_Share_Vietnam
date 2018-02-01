@@ -11,7 +11,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/recycler_layout_border">
 
         <TextView
             android:id="@+id/tvLocTitle"
@@ -53,6 +54,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLocContent" />
+
+        <ImageView
+            android:id="@+id/ivDoctorPin"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivLocMap"
+            app:layout_constraintEnd_toEndOf="@+id/ivLocMap"
+            app:layout_constraintStart_toStartOf="@+id/ivLocMap"
+            app:layout_constraintTop_toTopOf="@+id/ivLocMap"
+            app:srcCompat="@drawable/ic_48_pin_doctor" />
 
     </android.support.constraint.ConstraintLayout>
 
