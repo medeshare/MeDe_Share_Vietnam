@@ -280,7 +280,7 @@ class MainActivity : AppCompatActivity() {
     fun onChat(v: View){
         if (useDoctorMatch()) {
             val intent = Intent(this, ChatActivity::class.java)
-            intent.putExtra(Const.EXT_DOCTOR_NAME,bottomBinding.doctor!!.name)
+            intent.putExtra(Const.EXT_DOCTOR_NAME, bottomBinding.doctor!!.name)
             startActivity(intent)
         }
     }

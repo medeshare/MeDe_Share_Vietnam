@@ -38,8 +38,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".controller.DoctorMatchActivity"
-            android:theme="@style/NoActionBarTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".controller.ChatActivity"
             android:screenOrientation="portrait"
@@ -47,16 +47,17 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".controller.ConfirmActivity"
-            android:theme="@style/NoActionBarTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".controller.ConfirmPopUpActivity"
-            android:theme="@style/NoActionBarTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".controller.MatchingInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".controller.HanoiDeptActivity"></activity>
+        <activity android:name=".controller.HanoiDeptActivity" />
+        <activity android:name=".controller.HospitalDoctorProfileActivity"></activity>
     </application>
 
 </manifest>

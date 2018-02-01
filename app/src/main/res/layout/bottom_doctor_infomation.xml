@@ -31,6 +31,7 @@
                 android:layout_height="46dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/ivProfile"
+                android:background="@android:color/transparent"
                 android:onClick="onChat"
                 app:srcCompat="@drawable/btn_46_chat" />
 
@@ -50,6 +51,7 @@
                 android:layout_height="46dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/ivProfile"
+                android:background="@android:color/transparent"
                 android:onClick="onCall"
                 app:srcCompat="@drawable/btn_46_call" />
         </RelativeLayout>
