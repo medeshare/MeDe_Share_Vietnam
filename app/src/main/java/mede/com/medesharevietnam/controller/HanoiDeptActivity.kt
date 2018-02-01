@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_hanoi_dept.*
 import mede.com.medesharevietnam.R
@@ -24,12 +25,21 @@ class HanoiDeptActivity : AppCompatActivity(){
 
     private fun initView(){
         txt_deptSearch.setThreshold(1);
-        var adapter = MediAutoCompleteAdapter(this, R.layout.activity_main, R.id.tvDiseaseName, MedicalManager.getAllDiseases())
+        var adapter = MediAutoCompleteAdapter(this, R.layout.activity_hanoi_dept, R.id.tvDiseaseName, MedicalManager.getAllDiseases())
         txt_deptSearch.setAdapter(adapter)
 
         txt_deptSearch.setOnItemClickListener {
             adapterView, view, i,
             l -> selectedDisease = adapter.getItem(i)
+        }
+
+        txt_deptSearch.setOnEditorActionListener{ v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                search(v)
+                true
+            } else {
+                false
+            }
         }
     }
 
@@ -54,6 +64,10 @@ class HanoiDeptActivity : AppCompatActivity(){
             v==card_dentisty -> goToDoctorActivity("m05")
             v==card_general -> goToDoctorActivity("m02")
         }
+    }
+
+    fun back(v: View){
+        finish()
     }
 
     fun goToDoctorActivity(mediKey: String){
