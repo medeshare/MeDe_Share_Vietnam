@@ -18,7 +18,8 @@
         android:layout_height="241dp"
         android:layout_below="@+id/tvSchedule"
         android:layout_marginTop="12dp"
-        app:cardCornerRadius="10dp">
+        app:cardElevation="0dp"
+        app:cardCornerRadius="3dp">
 
         <com.alamkanak.weekview.WeekView
             android:id="@+id/weekView"

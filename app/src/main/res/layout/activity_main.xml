@@ -45,7 +45,7 @@
                         android:layout_weight="1"
                         android:background="#ffffff"
                         android:gravity="fill_vertical"
-                        android:hint="Type your symptom here"
+                        android:hint="Where do you feel pain?"
                         android:onClick="onSearch"
                         android:paddingLeft="13dp"
                         android:paddingRight="13dp"

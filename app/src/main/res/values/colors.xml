@@ -3,6 +3,7 @@
     <color name="colorPrimary">#1990ff</color>
     <color name="colorPrimaryDark">#1990ff</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="btn_next_disable">#C4C4C4</color>
     <color name="btn_next_enable">#1990FF</color>
 </resources>
