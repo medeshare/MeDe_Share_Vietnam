@@ -38,7 +38,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="42dp"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -54,7 +54,7 @@
                                 android:layout_height="42dp"
                                 android:paddingLeft="12dp"
                                 android:background="#ffffff"
-                                android:hint="Current Location"
+                                android:text="Current Location"
                                 android:fontFamily="sans-serif-light"
                                 android:textStyle="normal"
                                 android:textColor="#000000"
@@ -84,7 +84,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="42dp"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -94,13 +94,14 @@
                                 android:layout_marginLeft="9dp"
                                 app:srcCompat="@drawable/ic_13_map_pin_nor"/>
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/tvDoctorSearch"
-                                android:layout_width="match_parent"
-                                android:layout_height="42dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:paddingLeft="9dp"
                                 android:background="#ffffff"
-                                android:hint="Doctor Location"
+                                android:text="Doctor Location"
+                                android:layout_gravity="center_vertical"
                                 android:fontFamily="sans-serif-light"
                                 android:textStyle="normal"
                                 android:textColor="#000000"

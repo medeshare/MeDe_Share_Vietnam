@@ -12,6 +12,8 @@
         android:layout_marginLeft="5dp"
         android:text="Education / Experiences"
         android:textColor="#333333"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
         android:textSize="19sp" />
 
     <android.support.v7.widget.CardView
@@ -19,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvEduExpTitle"
         android:layout_marginTop="12dp"
-        app:cardCornerRadius="10dp">
+        app:cardElevation="0dp"
+        app:cardCornerRadius="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"

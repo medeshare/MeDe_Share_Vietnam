@@ -39,7 +39,7 @@
         <activity
             android:name=".controller.DoctorMatchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBarTheme" />
+            android:theme="@style/NoActionBarTheme2" />
         <activity
             android:name=".controller.ChatActivity"
             android:screenOrientation="portrait"
@@ -48,11 +48,11 @@
         <activity
             android:name=".controller.ConfirmActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBarTheme" />
+            android:theme="@style/NoActionBarTheme2" />
         <activity
             android:name=".controller.ConfirmPopUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBarTheme" />
+            android:theme="@style/NoActionBarTheme3" />
         <activity
             android:name=".controller.MatchingInfoActivity"
             android:screenOrientation="portrait" />
